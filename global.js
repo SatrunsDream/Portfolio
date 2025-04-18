@@ -1,6 +1,7 @@
-console.log('IT’S ALIVE!');
+console.log("IT'S ALIVE!");
 
-const BASE_PATH = "/portfolio/";
+// Use a relative path instead of an absolute path
+const BASE_PATH = "";
 
 let pages = [
   { url: '', title: 'Home' },
