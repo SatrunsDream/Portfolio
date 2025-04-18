@@ -1,6 +1,6 @@
 console.log("IT'S ALIVE!");
 
-// Use the correct case for your GitHub repository name
+
 const BASE_PATH = "https://satrunsdream.github.io/Portfolio/";
 
 let pages = [
