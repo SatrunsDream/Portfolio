@@ -15,6 +15,7 @@ let nav = document.createElement('nav');
 document.body.prepend(nav);
 
 for (let p of pages) {
+  // Always use absolute paths for internal links
   let url = p.url.startsWith('http') ? p.url : BASE_PATH + p.url;
   let a = document.createElement('a');
   a.href = url;
