@@ -1,7 +1,7 @@
 console.log("IT'S ALIVE!");
 
 // Use the correct case for your GitHub repository name
-const BASE_PATH = "/Portfolio/";
+const BASE_PATH = "https://satrunsdream.github.io/Portfolio/";
 
 let pages = [
   { url: '', title: 'Home' },
@@ -16,7 +16,7 @@ document.body.prepend(nav);
 
 for (let p of pages) {
   // Always use absolute paths for internal links
-  let url = p.url.startsWith('http') ? p.url : BASE_PATH + p.url;
+  let url = p.url.startsWith('http') ? p.url : new URL(p.url, BASE_PATH).href;
   let a = document.createElement('a');
   a.href = url;
   a.textContent = p.title;
