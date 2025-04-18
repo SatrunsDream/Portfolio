@@ -85,9 +85,9 @@ form?.addEventListener('submit', (event) => {
   const params = new URLSearchParams();
 
   for (let [name, value] of data) {
-    params.append(name, encodeURIComponent(value));
+    params.append(name, encodeURIComponent(value)); // Properly encode values
   }
 
   const mailtoUrl = `${form.action}?${params.toString()}`;
-  location.href = mailtoUrl; 
+  location.href = mailtoUrl; // Open the mailto URL
 });
