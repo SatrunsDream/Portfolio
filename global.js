@@ -1,7 +1,7 @@
 console.log("IT'S ALIVE!");
 
-// Use a relative path instead of an absolute path
-const BASE_PATH = "";
+// Use the correct case for your GitHub repository name
+const BASE_PATH = "/Portfolio/";
 
 let pages = [
   { url: '', title: 'Home' },
@@ -20,10 +20,15 @@ for (let p of pages) {
   a.href = url;
   a.textContent = p.title;
 
-  // Highlight the current page
+  // Highlight the current page - improved to handle case sensitivity
+  const currentPath = window.location.pathname.toLowerCase();
+  const linkPath = a.pathname.toLowerCase();
   a.classList.toggle(
     'current',
-    a.host === location.host && a.pathname === location.pathname,
+    a.host === location.host && 
+    (currentPath === linkPath || 
+     (currentPath.endsWith('/') && linkPath.endsWith('/index.html')) ||
+     (currentPath.endsWith('/') && linkPath.endsWith('/')))
   );
 
   // Open external links in a new tab
