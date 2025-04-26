@@ -1,0 +1,76 @@
+{
+  "projects": [
+    {
+      "title": "Lorem ipsum dolor sit.",
+      "year": "2024",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Consectetur adipisicing elit.",
+      "year": "2023",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Quisquam voluptatum.",
+      "year": "2022",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Dolor sit amet.",
+      "year": "2021",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Amet consectetur adipisicing.",
+      "year": "2020",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Elit quisquam voluptatum.",
+      "year": "2019",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Voluptatum dolor sit.",
+      "year": "2018",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Sit amet consectetur.",
+      "year": "2017",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Adipisicing elit quisquam.",
+      "year": "2016",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Quisquam dolor sit.",
+      "year": "2015",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Amet elit voluptatum.",
+      "year": "2014",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    },
+    {
+      "title": "Consectetur sit amet.",
+      "year": "2013",
+      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+    }
+  ]
+}
