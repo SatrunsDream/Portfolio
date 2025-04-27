@@ -1,12 +1,17 @@
 import { fetchJSON, renderProjects, BASE_PATH } from './global.js';
 
+console.log("BASE_PATH:", BASE_PATH);
+
 try {
   const projectsData = await fetchJSON(`${BASE_PATH}lib/projects.json`);
+  console.log("Projects data fetched:", projectsData);
+
   if (projectsData && projectsData.projects) {
     const latestProjects = projectsData.projects.slice(0, 3);
     const projectsContainer = document.querySelector('.projects');
     if (projectsContainer) {
       renderProjects(latestProjects, projectsContainer, 'h2');
+      console.log("Projects rendered successfully.");
     } else {
       console.error('Projects container not found.');
     }
@@ -20,12 +25,12 @@ try {
 try {
   const profileStats = document.querySelector('#profile-stats');
   console.log('Profile stats container found:', !!profileStats);
-  
+
   if (profileStats) {
     console.log('Fetching GitHub data...');
     const githubData = await fetchJSON('https://api.github.com/users/SatrunsDream');
     console.log('GitHub data received:', !!githubData, githubData);
-    
+
     if (githubData) {
       profileStats.innerHTML = `
         <h2>My GitHub Stats</h2>
@@ -48,7 +53,7 @@ try {
           </div>
         </div>
       `;
-      console.log('GitHub stats rendered successfully');
+      console.log('GitHub stats rendered successfully.');
     } else {
       profileStats.innerHTML = `<p>Failed to load GitHub stats. Please try again later.</p>`;
       console.error('Failed to fetch GitHub data.');
