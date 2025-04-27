@@ -1,9 +1,10 @@
 console.log("IT'S ALIVE!");
-console.log("BASE_PATH:", BASE_PATH);
 
 export const BASE_PATH = window.location.hostname.includes("github.io")
   ? "https://satrunsdream.github.io/Portfolio/"
   : window.location.origin + "/";
+
+console.log("BASE_PATH:", BASE_PATH);
 
 let pages = [
   { url: '', title: 'Home' },

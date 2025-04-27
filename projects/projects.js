@@ -4,7 +4,7 @@ console.log("BASE_PATH in projects.js:", BASE_PATH);
 
 try {
   console.log("Fetching projects data...");
-  const projectsData = await fetchJSON(`${BASE_PATH}lib/projects.json`);
+  const projectsData = await fetchJSON('https://satrunsdream.github.io/Portfolio/lib/projects.json');
   console.log("Projects data fetched:", projectsData);
 
   if (projectsData && projectsData.projects) {
