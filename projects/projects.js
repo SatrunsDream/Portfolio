@@ -1,12 +1,12 @@
-import { fetchJSON, renderProjects } from '../global.js';
+import { fetchJSON, renderProjects, BASE_PATH } from '../global.js';
 
 try {
-  const projects = await fetchJSON(`${BASE_PATH}lib/projects.json`);
-  if (projects) {
+  const projectsData = await fetchJSON(`${BASE_PATH}lib/projects.json`);
+  if (projectsData && projectsData.projects) {
     const projectsContainer = document.querySelector('.projects');
     if (projectsContainer) {
-      renderProjects(projects, projectsContainer, 'h2');
-      document.querySelector('.projects-title').textContent = `Projects (${projects.length})`;
+      renderProjects(projectsData.projects, projectsContainer, 'h2');
+      document.querySelector('.projects-title').textContent = `Projects (${projectsData.projects.length})`;
     } else {
       console.error('Projects container not found.');
     }
