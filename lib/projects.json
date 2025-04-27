@@ -1,28 +1,28 @@
 {
   "projects": [
     {
-      "title": "Lorem ipsum dolor sit.",
-      "year": "2024",
-      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+      "title": "Chronic Kidney Disease Prediction",
+      "year": "2025",
+      "image": "https://github.com/SatrunsDream/Chronic-Kidney-Disease/blob/main/assets/kidney_disease_prediction.png?raw=true",
+      "description": "Developed a machine learning model to predict chronic kidney disease using patient health indicators. Achieved high accuracy through data preprocessing, feature selection, and model optimization."
     },
     {
-      "title": "Consectetur adipisicing elit.",
-      "year": "2023",
-      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+      "title": "Power Outages Analysis",
+      "year": "2025",
+      "image": "https://github.com/SatrunsDream/Poweroutages-Analysis/blob/main/assets/power_outage_analysis.png?raw=true",
+      "description": "Analyzed major power outage events in the U.S. from 2000 to 2016. Conducted data cleaning, exploratory data analysis, and predictive modeling to understand outage patterns and their impacts."
     },
     {
-      "title": "Quisquam voluptatum.",
-      "year": "2022",
-      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+      "title": "House Evaluation",
+      "year": "2025",
+      "image": "https://github.com/SatrunsDream/House-Evaluation/blob/main/assets/house_evaluation.png?raw=true",
+      "description": "Created a web application to evaluate house prices using data from over 2 million U.S. homes. Implemented regression models and geodemographic analysis for accurate price predictions."
     },
     {
-      "title": "Dolor sit amet.",
-      "year": "2021",
-      "image": "https://dsc106.com/labs/lab02/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit."
+      "title": "Drug Consumption Study",
+      "year": "2025",
+      "image": "https://github.com/SatrunsDream/Drug-Consumption-Study/blob/main/assets/drug_consumption_study.png?raw=true",
+      "description": "Investigated correlations between demographic factors and drug consumption patterns. Utilized machine learning classification techniques to identify key predictors of substance use."
     },
     {
       "title": "Amet consectetur adipisicing.",
