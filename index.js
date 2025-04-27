@@ -1,23 +1,26 @@
-import { fetchJSON, renderProjects } from './global.js';
+import { fetchJSON, renderProjects, BASE_PATH } from './global.js';
 
-const projects = await fetchJSON(`${BASE_PATH}lib/projects.json`);
-if (projects) {
-  const latestProjects = projects.slice(0, 3);
-  const projectsContainer = document.querySelector('.projects');
-  renderProjects(latestProjects, projectsContainer, 'h2');
-} else {
-  console.error('Failed to load projects.');
+try {
+  const projectsData = await fetchJSON('https://satrunsdream.github.io/Portfolio/lib/projects.json');
+  if (projectsData && projectsData.projects) {
+    const latestProjects = projectsData.projects.slice(0, 3);
+    const projectsContainer = document.querySelector('.projects');
+    if (projectsContainer) {
+      renderProjects(latestProjects, projectsContainer, 'h2');
+    } else {
+      console.error('Projects container not found.');
+    }
+  } else {
+    console.error('Failed to load projects.');
+  }
+} catch (error) {
+  console.error('Error loading projects:', error);
 }
 
-const profileStats = document.querySelector('#profile-stats');
-if (profileStats) {
-  const  console.log('Profile stats container found:', !!profileStats);
-  
+try {
+  const profileStats = document.querySelector('#profile-stats');
   if (profileStats) {
-    console.log('Fetching GitHub data...');
     const githubData = await fetchJSON('https://api.github.com/users/SatrunsDream');
-    console.log('GitHub data received:', !!githubData, githubData);
-    
     if (githubData) {
       profileStats.innerHTML = `
         <h2>My GitHub Stats</h2>
@@ -40,7 +43,13 @@ if (profileStats) {
           </div>
         </div>
       `;
-      console.log('GitHub stats rendered successfully');
-ease try again later.</p>`;
+    } else {
+      profileStats.innerHTML = `<p>Failed to load GitHub stats. Please try again later.</p>`;
+      console.error('Failed to fetch GitHub data.');
+    }
+  } else {
+    console.error('Profile stats container not found.');
   }
+} catch (error) {
+  console.error('Error loading GitHub stats:', error);
 }
