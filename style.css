@@ -121,3 +121,25 @@ form button:hover {
     font-size: 80%;
     font-family: inherit;
 }
+
+.github-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.github-stats div {
+    flex: 1;
+}
+
+.github-stats h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.github-stats p {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
