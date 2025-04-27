@@ -1,6 +1,6 @@
 console.log("IT'S ALIVE!");
 
-const BASE_PATH = window.location.hostname.includes("github.io")
+export const BASE_PATH = window.location.hostname.includes("github.io")
   ? "https://satrunsdream.github.io/Portfolio/"
   : window.location.origin + "/";
 
@@ -95,7 +95,17 @@ form?.addEventListener('submit', (event) => {
 
 export async function fetchJSON(url) {
   try {
-    const response = await fetch(url);
+    const options = {};
+    
+    // Add GitHub API specific headers if the URL is for GitHub API
+    if (url.includes('api.github.com')) {
+      options.headers = {
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'Portfolio-App'
+      };
+    }
+    
+    const response = await fetch(url, options);
     if (!response.ok) {
       throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
     }
