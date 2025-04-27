@@ -2,7 +2,7 @@ console.log("IT'S ALIVE!");
 
 const BASE_PATH = window.location.hostname.includes("github.io")
   ? "https://satrunsdream.github.io/Portfolio/"
-  : "/";
+  : window.location.origin + "/";
 
 let pages = [
   { url: '', title: 'Home' },
