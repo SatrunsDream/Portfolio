@@ -69,6 +69,22 @@ img {
     display: grid;
     grid-template-rows: subgrid;
     grid-row: span 3;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.projects article:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.project-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.project-link:hover h2 {
+    color: var(--color-accent);
 }
 
 .projects h2 {
