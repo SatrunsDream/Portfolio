@@ -3,35 +3,35 @@
     {
       "title": "Chronic Kidney Disease Prediction",
       "year": "2025",
-      "image": "images/ckd.webp",
+      "image": "../images/ckd.webp",
       "description": "Developed a machine learning model to predict chronic kidney disease using patient health indicators. Achieved high accuracy through data preprocessing, feature selection, and model optimization.",
       "link": "https://satrunsdream.github.io/Chronic-Kidney-Disease/"
     },
     {
       "title": "Power Outages Analysis",
       "year": "2024",
-      "image": "images/poa.jpeg",
+      "image": "../images/poa.jpeg",
       "description": "Analyzed major power outage events in the U.S. from 2000 to 2016. Conducted data cleaning, exploratory data analysis, and predictive modeling to understand outage patterns and their impacts.",
       "link": "https://satrunsdream.github.io/Poweroutages-Analysis/"
     },
     {
       "title": "House Evaluation",
       "year": "2025",
-      "image": "images/hma.jpg",
+      "image": "../images/hma.jpg",
       "description": "Created a web application to evaluate house prices using data from over 2 million U.S. homes. Implemented regression models and geodemographic analysis for accurate price predictions.",
       "link": "https://github.com/SatrunsDream/House-Evaluation"
     },
     {
       "title": "Drug Consumption Study",
       "year": "2025",
-      "image": "images/dcs.avif",
+      "image": "../images/dcs.avif",
       "description": "Investigated correlations between demographic factors and drug consumption patterns. Utilized machine learning classification techniques to identify key predictors of substance use.",
       "link": "https://github.com/SatrunsDream/Drug-Consumption-Study"
     },
     {
       "title": "Surfance Temperature Anomalies",
       "year": "2025",
-      "image": "images/sta.jpg",
+      "image": "../images/sta.jpg",
       "description": "This project explores how visual design choices can shape public perception of climate data, and blurs the line between persuasion and deception. Focusing on global surface temperature anomalies from 1961–2024.",
       "link": "https://satrunsdream.github.io/Surfance_Temperture_Anomalies/"
     },
