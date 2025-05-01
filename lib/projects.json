@@ -3,84 +3,84 @@
     {
       "title": "Chronic Kidney Disease Prediction",
       "year": "2025",
-      "image": "images/ckd.webp",
+      "image": "https://satrunsdream.github.io/Portfolio/images/ckd.webp",
       "description": "Developed a machine learning model to predict chronic kidney disease using patient health indicators. Achieved high accuracy through data preprocessing, feature selection, and model optimization.",
       "link": "https://satrunsdream.github.io/Chronic-Kidney-Disease/"
     },
     {
       "title": "Power Outages Analysis",
       "year": "2024",
-      "image": "images/poa.jpeg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/poa.jpeg",
       "description": "Analyzed major power outage events in the U.S. from 2000 to 2016. Conducted data cleaning, exploratory data analysis, and predictive modeling to understand outage patterns and their impacts.",
       "link": "https://satrunsdream.github.io/Poweroutages-Analysis/"
     },
     {
       "title": "House Evaluation",
       "year": "2025",
-      "image": "images/hma.jpg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/hma.jpg",
       "description": "Created a web application to evaluate house prices using data from over 2 million U.S. homes. Implemented regression models and geodemographic analysis for accurate price predictions.",
       "link": "https://github.com/SatrunsDream/House-Evaluation"
     },
     {
       "title": "Drug Consumption Study",
       "year": "2025",
-      "image": "images/dcs.avif",
+      "image": "https://satrunsdream.github.io/Portfolio/images/dcs.avif",
       "description": "Investigated correlations between demographic factors and drug consumption patterns. Utilized machine learning classification techniques to identify key predictors of substance use.",
       "link": "https://github.com/SatrunsDream/Drug-Consumption-Study"
     },
     {
       "title": "Surfance Temperature Anomalies",
       "year": "2025",
-      "image": "images/sta.jpg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/sta.jpg",
       "description": "This project explores how visual design choices can shape public perception of climate data, and blurs the line between persuasion and deception. Focusing on global surface temperature anomalies from 1961–2024.",
       "link": "https://satrunsdream.github.io/Surfance_Temperture_Anomalies/"
     },
     {
       "title": "Elit quisquam voluptatum.",
       "year": "2019",
-      "image": "images/empty.svg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
       "link": "https://dsc106.com/labs/lab02/"
     },
     {
       "title": "Voluptatum dolor sit.",
       "year": "2018",
-      "image": "images/empty.svg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
       "link": "https://dsc106.com/labs/lab02/"
     },
     {
       "title": "Sit amet consectetur.",
       "year": "2017",
-      "image": "images/empty.svg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
       "link": "https://dsc106.com/labs/lab02/"
     },
     {
       "title": "Adipisicing elit quisquam.",
       "year": "2016",
-      "image": "images/empty.svg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
       "link": "https://dsc106.com/labs/lab02/"
     },
     {
       "title": "Quisquam dolor sit.",
       "year": "2015",
-      "image": "images/empty.svg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
       "link": "https://dsc106.com/labs/lab02/"
     },
     {
       "title": "Amet elit voluptatum.",
       "year": "2014",
-      "image": "images/empty.svg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
       "link": "https://dsc106.com/labs/lab02/"
     },
     {
       "title": "Consectetur sit amet.",
       "year": "2013",
-      "image": "images/empty.svg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
       "link": "https://dsc106.com/labs/lab02/"
     }
