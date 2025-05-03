@@ -8,6 +8,61 @@ const projectsContainer = document.querySelector('.projects');
 const searchInput = document.querySelector('.searchBar');
 const svg = d3.select('svg');
 const legend = d3.select('.legend');
+const box = document.querySelector('.box'); // Assuming the box has a class 'box'
+
+function updateBoxColor() {
+    const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
+    const isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (box) {
+        box.style.backgroundColor = themeColor;
+        box.style.border = '2px solid pink'; // Add pink outline to the border
+        box.style.color = isDarkTheme ? 'white' : 'black'; // Adjust text color for contrast
+    }
+}
+
+function updateBoxLayout() {
+    const dates = projects.map((project) => project.year).filter((year, index, self) => self.indexOf(year) === index);
+    const maxColumns = 4;
+    const maxRows = 3;
+    const totalDates = dates.length;
+    const rows = Math.min(Math.ceil(totalDates / maxColumns), maxRows);
+    const columns = Math.min(totalDates, maxColumns);
+
+    if (box) {
+        box.style.display = 'grid';
+        box.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+        box.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+        box.style.width = `${columns * 100}px`; // Dynamically adjust width
+        box.style.height = `${rows * 100}px`; // Dynamically adjust height
+        box.innerHTML = ''; // Clear existing content
+
+        dates.forEach((date) => {
+            const cell = document.createElement('div');
+            cell.textContent = date;
+            cell.style.border = '1px solid pink';
+            cell.style.display = 'flex';
+            cell.style.alignItems = 'center';
+            cell.style.justifyContent = 'center';
+            box.appendChild(cell);
+        });
+    }
+}
+
+// Update the box layout whenever projects are updated
+function updateBox() {
+    updateBoxColor();
+    updateBoxLayout();
+}
+
+// Listen for changes in the color scheme
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateBox);
+
+// Call updateBox whenever the theme changes
+const themeObserver = new MutationObserver(updateBox);
+themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+
+// Initial call to set the box color and layout
+updateBox();
 
 function getFilteredProjects() {
     return projects.filter((project) => {
@@ -76,6 +131,7 @@ try {
         projects = projectsData.projects;
         renderProjects(projects, projectsContainer, 'h2');
         renderPieChart();
+        updateBox(); // Update the box after loading projects
     } else {
         console.error('Failed to load projects.');
     }
