@@ -74,6 +74,10 @@ function renderPieChart(filteredProjects) {
         .innerRadius(0)
         .outerRadius(45);
 
+    const hoverArc = d3.arc()
+        .innerRadius(0)
+        .outerRadius(50); // Larger radius for hover effect
+
     const arcs = pie(yearData);
 
     // Draw pie chart slices
@@ -85,6 +89,21 @@ function renderPieChart(filteredProjects) {
         .attr('fill', (d, i) => colors(i))
         .attr('stroke', 'var(--border-color)')
         .attr('stroke-width', 1)
+        .attr('class', 'pie-slice')
+        .on('mouseover', function(event, d) {
+            d3.select(this)
+                .transition()
+                .duration(200)
+                .attr('d', hoverArc(d))
+                .attr('filter', 'drop-shadow(0 0 5px rgba(0,0,0,0.3))');
+        })
+        .on('mouseout', function(event, d) {
+            d3.select(this)
+                .transition()
+                .duration(200)
+                .attr('d', arc(d))
+                .attr('filter', null);
+        })
         .on('click', (event, d) => {
             const index = arcs.indexOf(d);
             selectedIndex = selectedIndex === index ? -1 : index;
@@ -114,7 +133,7 @@ function renderPieChart(filteredProjects) {
     function updateSelection() {
         // Update pie chart slices
         svg.selectAll('path')
-            .attr('class', (d, i) => i === selectedIndex ? 'selected' : '');
+            .attr('class', (d, i) => i === selectedIndex ? 'selected pie-slice' : 'pie-slice');
 
         // Update legend items
         legend.selectAll('li')
