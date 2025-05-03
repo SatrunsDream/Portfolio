@@ -9,7 +9,17 @@ const searchInput = document.querySelector('.searchBar');
 const svg = d3.select('svg');
 const legend = d3.select('.legend');
 
-function renderPieChart(filteredProjects) {
+function getFilteredProjects() {
+    return projects.filter((project) => {
+        const matchesQuery = Object.values(project).join('\n').toLowerCase().includes(query);
+        const matchesYear = selectedIndex === -1 || project.year === data[selectedIndex].label;
+        return matchesQuery && matchesYear;
+    });
+}
+
+function renderPieChart() {
+    const filteredProjects = getFilteredProjects();
+
     const rolledData = d3.rollups(
         filteredProjects,
         (v) => v.length,
@@ -36,11 +46,8 @@ function renderPieChart(filteredProjects) {
         .attr('class', (_, i) => (i === selectedIndex ? 'selected' : ''))
         .on('click', (_, i) => {
             selectedIndex = selectedIndex === i ? -1 : i;
-            const filteredByYear = selectedIndex === -1
-                ? projects
-                : projects.filter((p) => p.year === data[i].label);
-            renderProjects(filteredByYear, projectsContainer, 'h2');
-            renderPieChart(filteredByYear);
+            renderProjects(getFilteredProjects(), projectsContainer, 'h2');
+            renderPieChart();
         });
 
     legend.selectAll('li')
@@ -52,22 +59,15 @@ function renderPieChart(filteredProjects) {
         .text((d) => `${d.label} (${d.value})`)
         .on('click', (_, i) => {
             selectedIndex = selectedIndex === i ? -1 : i;
-            const filteredByYear = selectedIndex === -1
-                ? projects
-                : projects.filter((p) => p.year === data[i].label);
-            renderProjects(filteredByYear, projectsContainer, 'h2');
-            renderPieChart(filteredByYear);
+            renderProjects(getFilteredProjects(), projectsContainer, 'h2');
+            renderPieChart();
         });
 }
 
 searchInput.addEventListener('input', (event) => {
     query = event.target.value.toLowerCase();
-    const filteredProjects = projects.filter((project) => {
-        const values = Object.values(project).join('\n').toLowerCase();
-        return values.includes(query);
-    });
-    renderProjects(filteredProjects, projectsContainer, 'h2');
-    renderPieChart(filteredProjects);
+    renderProjects(getFilteredProjects(), projectsContainer, 'h2');
+    renderPieChart();
 });
 
 try {
@@ -75,7 +75,7 @@ try {
     if (projectsData && projectsData.projects) {
         projects = projectsData.projects;
         renderProjects(projects, projectsContainer, 'h2');
-        renderPieChart(projects);
+        renderPieChart();
     } else {
         console.error('Failed to load projects.');
     }

@@ -176,30 +176,32 @@ form button:hover {
 /* Pie chart and legend styling */
 .container {
     display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-top: 1rem;
+    gap: 1.5rem; /* Adjust spacing between pie chart and legend */
+    align-items: center; /* Align items vertically */
+    justify-content: flex-start; /* Align items to the start */
+    margin-top: 2rem;
+    flex-wrap: nowrap; /* Prevent wrapping */
 }
 
 svg {
     flex: 0 0 auto;
-    width: 12rem;
-    height: 12rem;
+    width: clamp(16rem, 25vw, 20rem); /* Larger size on laptops, responsive */
+    height: clamp(16rem, 25vw, 20rem); /* Match width for a perfect circle */
 }
 
 .legend {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 2em;
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the start */
+    gap: 1rem; /* Adjust gap for better spacing */
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 0.5em;
-    padding: 1em 2em;
-    margin: 1em 0;
+    padding: 1em 2em; /* Maintain padding */
+    margin: 0; /* Remove margin for better alignment */
     list-style: none;
-    width: fit-content;
+    flex: 1; /* Allow legend to occupy all available width */
+    box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 .legend li {
