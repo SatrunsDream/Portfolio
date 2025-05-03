@@ -10,9 +10,22 @@ const svg = d3.select('svg');
 const legend = d3.select('.legend');
 const box = document.querySelector('.box'); // Assuming the box has a class 'box'
 
-// Color scale for the pie chart
+// Color scale for the pie chart - using a more diverse and vibrant palette
 const colors = d3.scaleOrdinal()
-    .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), 12));
+    .range([
+        '#FF6B6B', // Coral Red
+        '#4ECDC4', // Turquoise
+        '#45B7D1', // Sky Blue
+        '#96CEB4', // Sage Green
+        '#FFEEAD', // Cream
+        '#D4A5A5', // Dusty Rose
+        '#9B59B6', // Purple
+        '#3498DB', // Blue
+        '#2ECC71', // Emerald
+        '#F1C40F', // Yellow
+        '#E67E22', // Orange
+        '#E74C3C'  // Red
+    ]);
 
 function updateBoxColor() {
     // Dynamically fetch the current theme color
@@ -20,13 +33,14 @@ function updateBoxColor() {
     const isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (box) {
         box.style.backgroundColor = themeColor;
-        box.style.border = `2px solid ${themeColor}`; // Match border color to theme color
-        box.style.color = isDarkTheme ? 'white' : 'black'; // Adjust text color for contrast
+        box.style.border = '2px solid #FF69B4'; // Hot Pink border
+        box.style.boxShadow = '0 0 10px rgba(255, 105, 180, 0.3)'; // Subtle pink glow
+        box.style.color = isDarkTheme ? 'white' : 'black';
 
         // Update the color of numbers inside the box
         const cells = box.querySelectorAll('div');
         cells.forEach((cell) => {
-            cell.style.color = isDarkTheme ? 'white' : 'black'; // Adjust text color for contrast
+            cell.style.color = isDarkTheme ? 'white' : 'black';
         });
     }
 }
