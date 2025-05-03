@@ -10,13 +10,24 @@ const svg = d3.select('svg');
 const legend = d3.select('.legend');
 const box = document.querySelector('.box'); // Assuming the box has a class 'box'
 
+// Color scale for the pie chart
+const colors = d3.scaleOrdinal()
+    .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), 12));
+
 function updateBoxColor() {
-    const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
+    // Dynamically fetch the current theme color
+    const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim();
     const isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (box) {
         box.style.backgroundColor = themeColor;
-        box.style.border = '2px solid pink'; // Add pink outline to the border
+        box.style.border = `2px solid ${themeColor}`; // Match border color to theme color
         box.style.color = isDarkTheme ? 'white' : 'black'; // Adjust text color for contrast
+
+        // Update the color of numbers inside the box
+        const cells = box.querySelectorAll('div');
+        cells.forEach((cell) => {
+            cell.style.color = isDarkTheme ? 'white' : 'black'; // Adjust text color for contrast
+        });
     }
 }
 
@@ -25,116 +36,109 @@ function updateBoxLayout() {
     const maxColumns = 4;
     const maxRows = 3;
     const totalDates = dates.length;
-    const rows = Math.min(Math.ceil(totalDates / maxColumns), maxRows);
-    const columns = Math.min(totalDates, maxColumns);
-
-    if (box) {
-        box.style.display = 'grid';
-        box.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
-        box.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-        box.style.width = `${columns * 100}px`; // Dynamically adjust width
-        box.style.height = `${rows * 100}px`; // Dynamically adjust height
-        box.innerHTML = ''; // Clear existing content
-
-        dates.forEach((date) => {
-            const cell = document.createElement('div');
-            cell.textContent = date;
-            cell.style.border = '1px solid pink';
-            cell.style.display = 'flex';
-            cell.style.alignItems = 'center';
-            cell.style.justifyContent = 'center';
-            box.appendChild(cell);
-        });
-    }
 }
 
-// Update the box layout whenever projects are updated
-function updateBox() {
-    updateBoxColor();
-    updateBoxLayout();
-}
+// Function to render the pie chart and legend
+function renderPieChart(filteredProjects) {
+    // Clear existing content
+    svg.selectAll('*').remove();
+    legend.selectAll('*').remove();
 
-// Listen for changes in the color scheme
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateBox);
-
-// Call updateBox whenever the theme changes
-const themeObserver = new MutationObserver(updateBox);
-themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
-
-// Initial call to set the box color and layout
-updateBox();
-
-function getFilteredProjects() {
-    return projects.filter((project) => {
-        const matchesQuery = Object.values(project).join('\n').toLowerCase().includes(query);
-        const matchesYear = selectedIndex === -1 || project.year === data[selectedIndex].label;
-        return matchesQuery && matchesYear;
-    });
-}
-
-function renderPieChart() {
-    const filteredProjects = getFilteredProjects();
-
-    const rolledData = d3.rollups(
+    // Group projects by year and count
+    const yearData = d3.rollups(
         filteredProjects,
-        (v) => v.length,
-        (d) => d.year
-    );
+        v => v.length,
+        d => d.year
+    ).map(([year, count]) => ({ year, count }));
 
-    const data = rolledData.map(([year, count]) => ({ label: year, value: count }));
-    const colors = d3.scaleOrdinal(d3.schemeTableau10);
+    // Create pie chart data
+    const pie = d3.pie()
+        .value(d => d.count)
+        .sort(null);
 
-    svg.selectAll('path').remove();
-    legend.selectAll('li').remove();
+    const arc = d3.arc()
+        .innerRadius(0)
+        .outerRadius(45);
 
-    const pie = d3.pie().value((d) => d.value);
-    const arc = d3.arc().innerRadius(0).outerRadius(40);
+    const arcs = pie(yearData);
 
-    const arcs = pie(data);
-
+    // Draw pie chart slices
     svg.selectAll('path')
         .data(arcs)
         .enter()
         .append('path')
         .attr('d', arc)
-        .attr('fill', (_, i) => colors(i))
-        .attr('class', (_, i) => (i === selectedIndex ? 'selected' : ''))
-        .on('click', (_, i) => {
-            selectedIndex = selectedIndex === i ? -1 : i;
-            renderProjects(getFilteredProjects(), projectsContainer, 'h2');
-            renderPieChart();
+        .attr('fill', (d, i) => colors(i))
+        .attr('stroke', 'var(--border-color)')
+        .attr('stroke-width', 1)
+        .on('click', (event, d) => {
+            const index = arcs.indexOf(d);
+            selectedIndex = selectedIndex === index ? -1 : index;
+            updateSelection();
         });
 
-    legend.selectAll('li')
-        .data(data)
+    // Create legend items
+    const legendItems = legend.selectAll('li')
+        .data(yearData)
         .enter()
         .append('li')
-        .attr('style', (_, i) => `--color:${colors(i)}`)
-        .attr('class', (_, i) => (i === selectedIndex ? 'selected' : ''))
-        .text((d) => `${d.label} (${d.value})`)
-        .on('click', (_, i) => {
-            selectedIndex = selectedIndex === i ? -1 : i;
-            renderProjects(getFilteredProjects(), projectsContainer, 'h2');
-            renderPieChart();
+        .attr('style', (d, i) => `--color: ${colors(i)}`)
+        .on('click', (event, d) => {
+            const index = yearData.indexOf(d);
+            selectedIndex = selectedIndex === index ? -1 : index;
+            updateSelection();
         });
+
+    // Add swatch and text to each legend item
+    legendItems.append('span')
+        .attr('class', 'swatch');
+
+    legendItems.append('span')
+        .text(d => `${d.year} (${d.count})`);
+
+    // Update selection state
+    function updateSelection() {
+        // Update pie chart slices
+        svg.selectAll('path')
+            .attr('class', (d, i) => i === selectedIndex ? 'selected' : '');
+
+        // Update legend items
+        legend.selectAll('li')
+            .attr('class', (d, i) => i === selectedIndex ? 'selected' : '');
+
+        // Filter projects based on selection
+        const filtered = selectedIndex === -1 
+            ? filteredProjects 
+            : filteredProjects.filter(p => p.year === yearData[selectedIndex].year);
+        
+        renderProjects(filtered, projectsContainer, 'h2');
+    }
 }
 
+// Initialize the page
+async function init() {
+    try {
+        const projectsData = await fetchJSON('https://satrunsdream.github.io/Portfolio/lib/projects.json');
+        if (projectsData && projectsData.projects) {
+            projects = projectsData.projects;
+            renderPieChart(projects);
+            renderProjects(projects, projectsContainer, 'h2');
+        }
+    } catch (error) {
+        console.error('Error loading projects:', error);
+    }
+}
+
+// Handle search input
 searchInput.addEventListener('input', (event) => {
     query = event.target.value.toLowerCase();
-    renderProjects(getFilteredProjects(), projectsContainer, 'h2');
-    renderPieChart();
+    const filteredProjects = projects.filter(project => {
+        const values = Object.values(project).join('\n').toLowerCase();
+        return values.includes(query);
+    });
+    renderPieChart(filteredProjects);
+    renderProjects(filteredProjects, projectsContainer, 'h2');
 });
 
-try {
-    const projectsData = await fetchJSON('https://satrunsdream.github.io/Portfolio/lib/projects.json');
-    if (projectsData && projectsData.projects) {
-        projects = projectsData.projects;
-        renderProjects(projects, projectsContainer, 'h2');
-        renderPieChart();
-        updateBox(); // Update the box after loading projects
-    } else {
-        console.error('Failed to load projects.');
-    }
-} catch (error) {
-    console.error('Error loading projects:', error);
-}
+// Initialize the page
+init();

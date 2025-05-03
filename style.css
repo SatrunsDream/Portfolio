@@ -176,37 +176,37 @@ form button:hover {
 /* Pie chart and legend styling */
 .container {
     display: flex;
-    gap: 1.5rem; /* Adjust spacing between pie chart and legend */
-    align-items: center; /* Align items vertically */
-    justify-content: flex-start; /* Align items to the start */
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: flex-start;
     margin-top: 2rem;
-    flex-wrap: nowrap; /* Prevent wrapping */
+    flex-wrap: nowrap;
 }
 
 svg {
     flex: 0 0 auto;
-    width: clamp(16rem, 25vw, 20rem); /* Larger size on laptops, responsive */
-    height: clamp(16rem, 25vw, 20rem); /* Match width for a perfect circle */
+    width: clamp(16rem, 25vw, 20rem);
+    height: clamp(16rem, 25vw, 20rem);
 }
 
 .legend {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align items to the start */
-    gap: 1rem; /* Adjust gap for better spacing */
-    background: #fff;
-    border: 1px solid #ccc;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+    gap: 0.5rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border-color);
     border-radius: 0.5em;
-    padding: 1em 2em; /* Maintain padding */
-    margin: 0; /* Remove margin for better alignment */
+    padding: 1em;
+    margin: 0;
     list-style: none;
-    flex: 1; /* Allow legend to occupy all available width */
-    box-sizing: border-box; /* Ensure padding is included in width */
+    flex: 1;
+    box-sizing: border-box;
 }
 
 .legend li {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
     font-size: 1em;
     font-weight: 500;
     padding: 0.2em 0.8em;
@@ -215,22 +215,31 @@ svg {
     border: none;
     cursor: pointer;
     position: relative;
+    transition: background-color 0.2s ease;
 }
 
-.legend li::before {
-    content: '';
+.legend li:hover {
+    background-color: color-mix(in oklch, var(--color-accent), canvas 90%);
+}
+
+.legend li .swatch {
     display: inline-block;
     width: 1em;
     height: 1em;
     border-radius: 50%;
     background: var(--color, #888);
-    margin-right: 0.5em;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
 }
 
 .legend li.selected {
     font-weight: bold;
-    text-decoration: underline;
+    background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
+}
+
+.legend li.selected .swatch {
+    border-color: var(--color-accent);
+    border-width: 2px;
 }
 
 .searchBar {
