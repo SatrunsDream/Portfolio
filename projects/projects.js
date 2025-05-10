@@ -129,8 +129,17 @@ function renderPieChart(filteredProjects) {
     legendItems.append('span')
         .text(d => `${d.year} (${d.count})`);
 
-    // Update selection state
     function updateSelection() {
+
+        const filteredByYear = selectedIndex === -1 
+            ? filteredProjects 
+            : filteredProjects.filter(p => p.year === yearData[selectedIndex].year);
+
+        const finalFilteredProjects = filteredByYear.filter(project => {
+            const values = Object.values(project).join('\n').toLowerCase();
+            return values.includes(query);
+        });
+
         // Update pie chart slices
         svg.selectAll('path')
             .attr('class', (d, i) => i === selectedIndex ? 'selected pie-slice' : 'pie-slice');
@@ -139,12 +148,8 @@ function renderPieChart(filteredProjects) {
         legend.selectAll('li')
             .attr('class', (d, i) => i === selectedIndex ? 'selected' : '');
 
-        // Filter projects based on selection
-        const filtered = selectedIndex === -1 
-            ? filteredProjects 
-            : filteredProjects.filter(p => p.year === yearData[selectedIndex].year);
-        
-        renderProjects(filtered, projectsContainer, 'h2');
+        // Render projects based on combined filtering
+        renderProjects(finalFilteredProjects, projectsContainer, 'h2');
     }
 }
 

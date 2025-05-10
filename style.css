@@ -251,3 +251,37 @@ svg {
     border-radius: 0.25rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.stats {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.tooltip {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    padding: 1em;
+    z-index: 10;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.tooltip[hidden] {
+    opacity: 0;
+    visibility: hidden;
+}
+
+circle {
+    transition: transform 200ms, fill-opacity 200ms;
+    transform-origin: center;
+}
+
+circle:hover {
+    transform: scale(1.5);
+    fill-opacity: 1;
+}
