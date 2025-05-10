@@ -117,6 +117,38 @@ function updateTooltipPosition(event) {
     tooltip.style.top = `${event.clientY}px`;
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const csvFilePath = "loc.csv";
+    const chartContainer = document.getElementById("chart");
+    const statsContainer = document.getElementById("stats");
+
+    fetch(csvFilePath)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load ${csvFilePath}`);
+            }
+            return response.text();
+        })
+        .then(csvText => {
+            const rows = csvText.split("\n").map(row => row.split(","));
+            const headers = rows.shift(); // Extract headers
+            const data = rows.map(row => Object.fromEntries(row.map((value, index) => [headers[index], value])));
+
+            // Example: Render a simple chart (replace with your charting library)
+            chartContainer.innerHTML = `<pre>${JSON.stringify(data.slice(0, 10), null, 2)}</pre>`;
+
+            // Example: Display statistics
+            statsContainer.innerHTML = `
+                <p>Total Files: ${new Set(data.map(row => row.file)).size}</p>
+                <p>Total Lines: ${data.length}</p>
+            `;
+        })
+        .catch(error => {
+            console.error("Error loading or processing CSV:", error);
+            chartContainer.innerHTML = `<p>Error loading chart data.</p>`;
+        });
+});
+
 async function init() {
     const data = await loadData();
     const commits = processCommits(data);
