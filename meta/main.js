@@ -161,6 +161,7 @@ function renderScatterPlot(data, commits) {
     );
     renderSelectionCount(selection, commits, xScale, yScale);
     renderLanguageBreakdown(selection, commits, xScale, yScale);
+    renderSelectionStats(selection, commits, xScale, yScale); // Add this line
   }
 
   function isCommitSelected(selection, commit, xScale, yScale) {
@@ -235,6 +236,30 @@ function renderLanguageBreakdown(selection) {
       <dd>${count} lines (${formatted})</dd>
     `;
   }
+}
+
+function renderSelectionStats(selection, commits, xScale, yScale) {
+  const selectedCommits = selection
+    ? commits.filter(d => isCommitSelected(selection, d, xScale, yScale))
+    : [];
+
+  const statsContainer = d3.select('#selection-stats');
+  statsContainer.html(''); // Clear previous stats
+
+  if (selectedCommits.length === 0) {
+    statsContainer.append('p').text('No commits selected.');
+    return;
+  }
+
+  const totalLines = d3.sum(selectedCommits, d => d.totalLines);
+  const avgLineLength = d3.mean(
+    selectedCommits.flatMap(d => d.lines),
+    d => d.length
+  );
+
+  statsContainer.append('p').text(`Selected Commits: ${selectedCommits.length}`);
+  statsContainer.append('p').text(`Total Lines of Code: ${totalLines}`);
+  statsContainer.append('p').text(`Average Line Length: ${Math.round(avgLineLength)}`);
 }
 
 // Initialize
