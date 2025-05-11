@@ -34,55 +34,6 @@
       "image": "https://satrunsdream.github.io/Portfolio/images/sta.jpg",
       "description": "This project explores how visual design choices can shape public perception of climate data, and blurs the line between persuasion and deception. Focusing on global surface temperature anomalies from 1961–2024.",
       "link": "https://satrunsdream.github.io/Surfance_Temperture_Anomalies/"
-    },
-    {
-      "title": "Elit quisquam voluptatum.",
-      "year": "2019",
-      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
-      "link": "https://dsc106.com/labs/lab02/"
-    },
-    {
-      "title": "Voluptatum dolor sit.",
-      "year": "2018",
-      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
-      "link": "https://dsc106.com/labs/lab02/"
-    },
-    {
-      "title": "Sit amet consectetur.",
-      "year": "2017",
-      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
-      "link": "https://dsc106.com/labs/lab02/"
-    },
-    {
-      "title": "Adipisicing elit quisquam.",
-      "year": "2016",
-      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
-      "link": "https://dsc106.com/labs/lab02/"
-    },
-    {
-      "title": "Quisquam dolor sit.",
-      "year": "2015",
-      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
-      "link": "https://dsc106.com/labs/lab02/"
-    },
-    {
-      "title": "Amet elit voluptatum.",
-      "year": "2014",
-      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
-      "link": "https://dsc106.com/labs/lab02/"
-    },
-    {
-      "title": "Consectetur sit amet.",
-      "year": "2013",
-      "image": "https://satrunsdream.github.io/Portfolio/images/empty.svg",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis ullam sint porro minima modi molestias doloribus cumque odit.",
-      "link": "https://dsc106.com/labs/lab02/"
     }
   ]
 }
