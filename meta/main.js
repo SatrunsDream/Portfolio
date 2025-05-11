@@ -73,10 +73,9 @@ function renderCommitInfo(data, commits) {
 }
 
 function renderScatterPlot(data, commits) {
-  const width = 1000;
-  const height = 600;
+  const width = window.innerWidth * 0.9; // 90% of the window width
+  const height = window.innerHeight * 0.7; // 70% of the window height
   const margin = { top: 10, right: 10, bottom: 30, left: 20 };
-
   const usableArea = {
     top: margin.top,
     right: width - margin.right,
@@ -88,60 +87,42 @@ function renderScatterPlot(data, commits) {
 
   const svg = d3.select('#chart')
     .append('svg')
-    .attr('viewBox', `0 0 ${width} ${height}`)
-    .style('overflow', 'visible');
+    .attr('width', width)
+    .attr('height', height);
 
   const xScale = d3.scaleTime()
-    .domain(d3.extent(commits, d => d.datetime))
-    .range([usableArea.left, usableArea.right])
-    .nice();
+    .domain(d3.extent(commits, (d) => d.datetime))
+    .range([usableArea.left, usableArea.right]);
 
   const yScale = d3.scaleLinear()
     .domain([0, 24])
     .range([usableArea.bottom, usableArea.top]);
 
-  // Add gridlines
-  const gridlines = svg.append('g')
-    .attr('class', 'gridlines')
-    .attr('transform', `translate(${usableArea.left}, 0)`);
-
-  gridlines.call(d3.axisLeft(yScale)
-    .tickFormat('')
-    .tickSize(-usableArea.width));
-
-  // Create axes
   const xAxis = d3.axisBottom(xScale);
   const yAxis = d3.axisLeft(yScale)
-    .tickFormat(d => String(d % 24).padStart(2, '0') + ':00');
+    .tickFormat((d) => `${String(d).padStart(2, '0')}:00`);
 
-  // Add X axis
   svg.append('g')
     .attr('transform', `translate(0, ${usableArea.bottom})`)
     .call(xAxis);
 
-  // Add Y axis
   svg.append('g')
     .attr('transform', `translate(${usableArea.left}, 0)`)
     .call(yAxis);
 
-  // Create radius scale
-  const [minLines, maxLines] = d3.extent(commits, d => d.totalLines);
+  const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
   const rScale = d3.scaleSqrt()
     .domain([minLines, maxLines])
     .range([2, 30]);
 
-  // Sort commits by size
-  const sortedCommits = d3.sort(commits, d => -d.totalLines);
-
-  // Draw dots
   const dots = svg.append('g').attr('class', 'dots');
 
   dots.selectAll('circle')
-    .data(sortedCommits)
+    .data(commits)
     .join('circle')
-    .attr('cx', d => xScale(d.datetime))
-    .attr('cy', d => yScale(d.hourFrac))
-    .attr('r', d => rScale(d.totalLines))
+    .attr('cx', (d) => xScale(d.datetime))
+    .attr('cy', (d) => yScale(d.hourFrac))
+    .attr('r', (d) => rScale(d.totalLines))
     .attr('fill', 'steelblue')
     .style('fill-opacity', 0.7)
     .on('mouseenter', (event, commit) => {
@@ -155,26 +136,25 @@ function renderScatterPlot(data, commits) {
       updateTooltipVisibility(false);
     });
 
-  // Create brush
   svg.call(d3.brush()
-    .on('start brush end', brushed));
+    .on('start brush end', (event) => brushed(event, commits, xScale, yScale)));
 
-  // Raise dots above brush overlay
-  svg.selectAll('.dots, .overlay ~ *').raise();
-
-  function brushed(event) {
+  function brushed(event, commits, xScale, yScale) {
     const selection = event.selection;
-    d3.selectAll('circle').classed('selected', d => isCommitSelected(selection, d));
-    renderSelectionCount(selection);
-    renderLanguageBreakdown(selection);
+    d3.selectAll('circle').classed('selected', (d) =>
+      isCommitSelected(selection, d, xScale, yScale)
+    );
+    renderSelectionCount(selection, commits, xScale, yScale);
+    renderLanguageBreakdown(selection, commits, xScale, yScale);
   }
 
-  function isCommitSelected(selection, commit) {
+  function isCommitSelected(selection, commit, xScale, yScale) {
     if (!selection) return false;
+    const [x0, y0] = selection[0];
+    const [x1, y1] = selection[1];
     const x = xScale(commit.datetime);
     const y = yScale(commit.hourFrac);
-    return x >= selection[0][0] && x <= selection[1][0] &&
-           y >= selection[0][1] && y <= selection[1][1];
+    return x >= x0 && x <= x1 && y >= y0 && y <= y1;
   }
 }
 
