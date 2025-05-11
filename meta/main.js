@@ -40,6 +40,51 @@ function renderCommitInfo(data, commits) {
   dl.append('dd').text(commits.length);
 }
 
+function calculateFileStats(data) {
+  const fileGroups = d3.groups(data, (d) => d.file);
+  const fileLengths = fileGroups.map(([file, lines]) => ({
+    file,
+    length: lines.length,
+    longestLine: d3.max(lines, (d) => d.length),
+  }));
+
+  const totalLines = d3.sum(fileLengths, (d) => d.length);
+  const totalFiles = fileLengths.length;
+  const maxFile = d3.max(fileLengths, (d) => d.length);
+  const longestFile = fileLengths.find((d) => d.length === maxFile).file;
+  const avgFileLength = totalLines / totalFiles;
+  const longestLine = d3.max(fileLengths, (d) => d.longestLine);
+  const maxDepth = d3.max(data, (d) => d.depth);
+
+  return {
+    totalFiles,
+    maxFile,
+    longestFile,
+    avgFileLength,
+    longestLine,
+    maxDepth,
+  };
+}
+
+function renderFileStats(data) {
+  const stats = calculateFileStats(data);
+  const dl = d3.select('#language-breakdown');
+  dl.html(''); // Clear existing content
+
+  dl.append('dt').text('Number of files');
+  dl.append('dd').text(stats.totalFiles);
+  dl.append('dt').text('Maximum file length (lines)');
+  dl.append('dd').text(stats.maxFile);
+  dl.append('dt').text('Longest file');
+  dl.append('dd').text(stats.longestFile);
+  dl.append('dt').text('Average file length (lines)');
+  dl.append('dd').text(stats.avgFileLength.toFixed(2));
+  dl.append('dt').text('Longest line length');
+  dl.append('dd').text(stats.longestLine);
+  dl.append('dt').text('Maximum depth');
+  dl.append('dd').text(stats.maxDepth);
+}
+
 function renderScatterPlot(data, commits) {
   const width = window.innerWidth * 0.9; // 90% of the window width
   const height = window.innerHeight * 0.7; // 70% of the window height
@@ -53,40 +98,50 @@ function renderScatterPlot(data, commits) {
     height: height - margin.top - margin.bottom,
   };
 
-  const xScale = d3.scaleTime()
-    .domain(d3.extent(commits, (d) => d.datetime))
-    .range([usableArea.left, usableArea.right])
-    .nice();
+  const svg = d3
+    .select('#chart')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
 
-  const yScale = d3.scaleLinear()
+  const xScale = d3
+    .scaleTime()
+    .domain(d3.extent(commits, (d) => d.datetime))
+    .range([usableArea.left, usableArea.right]);
+
+  const yScale = d3
+    .scaleLinear()
     .domain([0, 24])
     .range([usableArea.bottom, usableArea.top]);
 
-  const svg = d3.select('#chart')
-    .append('svg')
-    .attr('viewBox', `0 0 ${width} ${height}`)
-    .style('width', '100%') // Make it responsive
-    .style('height', 'auto') // Maintain aspect ratio
-    .style('overflow', 'visible');
-
-  const dots = svg.append('g').attr('class', 'dots');
   const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
   const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([2, 30]);
 
-  dots.selectAll('circle')
+  const dots = svg.append('g').attr('class', 'dots');
+  dots
+    .selectAll('circle')
     .data(commits)
     .join('circle')
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
     .attr('r', (d) => rScale(d.totalLines))
-    .attr('fill', 'steelblue')
     .style('fill-opacity', 0.7)
     .on('mouseenter', (event, commit) => {
+      d3.select(event.currentTarget).style('fill-opacity', 1);
       renderTooltipContent(commit);
       updateTooltipVisibility(true);
       updateTooltipPosition(event);
     })
-    .on('mouseleave', () => updateTooltipVisibility(false));
+    .on('mouseleave', (event) => {
+      d3.select(event.currentTarget).style('fill-opacity', 0.7);
+      updateTooltipVisibility(false);
+    });
+
+  svg.call(
+    d3
+      .brush()
+      .on('start brush end', (event) => brushed(event, commits, xScale, yScale))
+  );
 
   const xAxis = d3.axisBottom(xScale);
   const yAxis = d3.axisLeft(yScale).tickFormat((d) => `${String(d % 24).padStart(2, '0')}:00`);
@@ -110,7 +165,8 @@ function renderTooltipContent(commit) {
 }
 
 function updateTooltipVisibility(isVisible) {
-  document.getElementById('commit-tooltip').hidden = !isVisible;
+  const tooltip = document.getElementById('commit-tooltip');
+  tooltip.hidden = !isVisible;
 }
 
 function updateTooltipPosition(event) {
@@ -119,9 +175,61 @@ function updateTooltipPosition(event) {
   tooltip.style.top = `${event.clientY}px`;
 }
 
+function brushed(event, commits, xScale, yScale) {
+  const selection = event.selection;
+  d3.selectAll('circle').classed('selected', (d) =>
+    isCommitSelected(selection, d, xScale, yScale)
+  );
+  renderSelectionCount(selection, commits, xScale, yScale);
+  renderLanguageBreakdown(selection, commits, xScale, yScale);
+}
+
+function isCommitSelected(selection, commit, xScale, yScale) {
+  if (!selection) return false;
+  const [x0, y0] = selection[0];
+  const [x1, y1] = selection[1];
+  const x = xScale(commit.datetime);
+  const y = yScale(commit.hourFrac);
+  return x >= x0 && x <= x1 && y >= y0 && y <= y1;
+}
+
+function renderSelectionCount(selection, commits, xScale, yScale) {
+  const selectedCommits = selection
+    ? commits.filter((d) => isCommitSelected(selection, d, xScale, yScale))
+    : [];
+  const countElement = document.querySelector('#selection-count');
+  countElement.textContent = `${
+    selectedCommits.length || 'No'
+  } commits selected`;
+}
+
+function renderLanguageBreakdown(selection, commits, xScale, yScale) {
+  const selectedCommits = selection
+    ? commits.filter((d) => isCommitSelected(selection, d, xScale, yScale))
+    : [];
+  const container = document.getElementById('language-breakdown');
+  if (selectedCommits.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+  const lines = selectedCommits.flatMap((d) => d.lines);
+  const breakdown = d3.rollup(
+    lines,
+    (v) => v.length,
+    (d) => d.type
+  );
+  container.innerHTML = '';
+  for (const [language, count] of breakdown) {
+    const proportion = count / lines.length;
+    const formatted = d3.format('.1~%')(proportion);
+    container.innerHTML += `<dt>${language}</dt><dd>${count} lines (${formatted})</dd>`;
+  }
+}
+
 (async function () {
   const data = await loadData();
   const commits = processCommits(data);
   renderCommitInfo(data, commits);
   renderScatterPlot(data, commits);
+  renderFileStats(data);
 })();

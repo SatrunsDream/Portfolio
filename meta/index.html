@@ -7,6 +7,28 @@
     <link rel="stylesheet" href="https://satrunsdream.github.io/Portfolio/style.css">
     <script type="module" src="https://satrunsdream.github.io/Portfolio/global.js"></script>
     <script type="module" src="./main.js" defer></script>
+    <style>
+      dl.info {
+        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        padding: 10px;
+        position: absolute;
+        pointer-events: none;
+        transition: opacity 500ms, visibility 500ms;
+      }
+      dl.info[hidden] {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .selection {
+        fill-opacity: 0.1;
+        stroke: black;
+        stroke-opacity: 0.7;
+        stroke-dasharray: 5 3;
+        animation: marching-ants 2s linear infinite;
+      }
+    </style>
 </head>
 <body>
     <h1 class="projects-title">Meta Analysis</h1>
@@ -14,6 +36,7 @@
     <div id="stats"></div>
     <h2>Commits by Time of Day</h2>
     <div id="chart"></div>
+    <dl id="file-stats" class="stats"></dl>
     <dl id="commit-tooltip" class="info tooltip" hidden>
         <dt>Commit</dt>
         <dd><a href="" id="commit-link" target="_blank"></a></dd>
