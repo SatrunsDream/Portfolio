@@ -73,9 +73,9 @@ function renderCommitInfo(data, commits) {
 }
 
 function renderScatterPlot(data, commits) {
-  const width = window.innerWidth * 0.9; // 90% of the window width
-  const height = window.innerHeight * 0.7; // 70% of the window height
-  const margin = { top: 10, right: 10, bottom: 30, left: 20 };
+  const width = 1200; // Set a fixed width for better visibility
+  const height = 600; // Set a fixed height for better visibility
+  const margin = { top: 50, right: 50, bottom: 50, left: 70 }; // Adjust margins for axis labels
   const usableArea = {
     top: margin.top,
     right: width - margin.right,
@@ -98,17 +98,32 @@ function renderScatterPlot(data, commits) {
     .domain([0, 24])
     .range([usableArea.bottom, usableArea.top]);
 
-  const xAxis = d3.axisBottom(xScale);
+  const xAxis = d3.axisBottom(xScale)
+    .tickFormat(d3.timeFormat('%b %d, %H:%M')); // Format dates and times
+
   const yAxis = d3.axisLeft(yScale)
     .tickFormat((d) => `${String(d).padStart(2, '0')}:00`);
 
   svg.append('g')
     .attr('transform', `translate(0, ${usableArea.bottom})`)
-    .call(xAxis);
+    .call(xAxis)
+    .append('text') // Add x-axis label
+    .attr('x', usableArea.width / 2 + usableArea.left)
+    .attr('y', 40)
+    .attr('fill', 'black')
+    .style('text-anchor', 'middle')
+    .text('Date and Time');
 
   svg.append('g')
     .attr('transform', `translate(${usableArea.left}, 0)`)
-    .call(yAxis);
+    .call(yAxis)
+    .append('text') // Add y-axis label
+    .attr('transform', 'rotate(-90)')
+    .attr('x', -usableArea.height / 2)
+    .attr('y', -50)
+    .attr('fill', 'black')
+    .style('text-anchor', 'middle')
+    .text('Hour of Day');
 
   const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
   const rScale = d3.scaleSqrt()
