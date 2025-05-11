@@ -73,9 +73,13 @@ function renderCommitInfo(data, commits) {
 }
 
 function renderScatterPlot(data, commits) {
-  const width = 1200; // Set a fixed width for better visibility
-  const height = 600; // Set a fixed height for better visibility
-  const margin = { top: 50, right: 50, bottom: 50, left: 70 }; // Adjust margins for axis labels
+  const margin = { top: 50, right: 50, bottom: 50, left: 70 };
+
+  // Dynamically calculate width and height based on the container size
+  const container = d3.select('#chart').node();
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
   const usableArea = {
     top: margin.top,
     right: width - margin.right,
@@ -87,8 +91,8 @@ function renderScatterPlot(data, commits) {
 
   const svg = d3.select('#chart')
     .append('svg')
-    .attr('width', width)
-    .attr('height', height);
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet');
 
   const xScale = d3.scaleTime()
     .domain(d3.extent(commits, (d) => d.datetime))
@@ -99,7 +103,7 @@ function renderScatterPlot(data, commits) {
     .range([usableArea.bottom, usableArea.top]);
 
   const xAxis = d3.axisBottom(xScale)
-    .tickFormat(d3.timeFormat('%b %d, %H:%M')); // Format dates and times
+    .tickFormat(d3.timeFormat('%b %d, %H:%M'));
 
   const yAxis = d3.axisLeft(yScale)
     .tickFormat((d) => `${String(d).padStart(2, '0')}:00`);
@@ -107,7 +111,7 @@ function renderScatterPlot(data, commits) {
   svg.append('g')
     .attr('transform', `translate(0, ${usableArea.bottom})`)
     .call(xAxis)
-    .append('text') // Add x-axis label
+    .append('text')
     .attr('x', usableArea.width / 2 + usableArea.left)
     .attr('y', 40)
     .attr('fill', 'black')
@@ -117,7 +121,7 @@ function renderScatterPlot(data, commits) {
   svg.append('g')
     .attr('transform', `translate(${usableArea.left}, 0)`)
     .call(yAxis)
-    .append('text') // Add y-axis label
+    .append('text')
     .attr('transform', 'rotate(-90)')
     .attr('x', -usableArea.height / 2)
     .attr('y', -50)
