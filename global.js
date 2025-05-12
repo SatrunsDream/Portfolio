@@ -13,85 +13,62 @@ let pages = [
   { url: 'https://drive.google.com/file/d/1tDyOUQV6bGmiMTLvdvAH_JCUpUCJdNaR/view?usp=drive_link', title: 'Resume' }
 ];
 
-let nav = document.createElement('nav');
-document.body.prepend(nav);
+document.addEventListener('DOMContentLoaded', () => {
+    // Remove any existing navs to prevent duplicates
+    document.querySelectorAll('nav').forEach(n => n.remove());
+    // Inject nav and theme switcher
+    const navHTML = `
+    <nav style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;position:relative;">
+      <div style="display:flex;gap:1.5rem;align-items:center;">
+        <a href="${BASE_PATH}">Home</a>
+        <a href="${BASE_PATH}projects/">Projects</a>
+        <a href="${BASE_PATH}meta/">Meta</a>
+        <a href="${BASE_PATH}contact/">Contact</a>
+        <a href="https://github.com/SatrunsDream" target="_blank">GitHub</a>
+        <a href="https://drive.google.com/file/d/1tDyOUQV6bGmiMTLvdvAH_JCUpUCJdNaR/view?usp=drive_link" target="_blank">Resume</a>
+      </div>
+      <div class="theme-switch" style="margin-left:auto;">
+        <input type="checkbox" id="theme-toggle" aria-label="Toggle dark mode" checked>
+        <label for="theme-toggle">
+          <span class="icon moon">🌙</span>
+          <span class="slider"></span>
+          <span class="icon sun">☀️</span>
+        </label>
+      </div>
+    </nav>`;
+    document.body.insertAdjacentHTML('afterbegin', navHTML);
 
-for (let p of pages) {
-  // Always use absolute paths for internal links
-  let url = p.url.startsWith('http') ? p.url : new URL(p.url, BASE_PATH).href;
-  let a = document.createElement('a');
-  a.href = url;
-  a.textContent = p.title;
-
-  // Highlight the current page - improved to handle case sensitivity
-  const currentPath = window.location.pathname.toLowerCase();
-  const linkPath = a.pathname.toLowerCase();
-  a.classList.toggle(
-    'current',
-    a.host === location.host && 
-    (currentPath === linkPath || 
-     (currentPath.endsWith('/') && linkPath.endsWith('/index.html')) ||
-     (currentPath.endsWith('/') && linkPath.endsWith('/')))
-  );
-
-  // Open external links in a new tab
-  if (a.host !== location.host) {
-    a.target = "_blank";
-  }
-
-  nav.append(a);
-}
-
-// Add theme switcher
-document.body.insertAdjacentHTML(
-  'afterbegin',
-  `
-  <label class="color-scheme">
-    Theme:
-    <select id="theme-selector">
-      <option value="light dark">Automatic</option>
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
-    </select>
-  </label>
-  `
-);
-
-const select = document.querySelector('.color-scheme select');
-
-// Function to set color scheme
-function setColorScheme(colorScheme) {
-  document.documentElement.style.setProperty('color-scheme', colorScheme);
-  select.value = colorScheme;
-}
-
-// Load saved preference or default to automatic
-if ("colorScheme" in localStorage) {
-  setColorScheme(localStorage.colorScheme);
-} else {
-  setColorScheme('light dark');
-}
-
-// Save preference on change
-select.addEventListener('input', (event) => {
-  const colorScheme = event.target.value;
-  setColorScheme(colorScheme);
-  localStorage.colorScheme = colorScheme;
-});
-
-const form = document.querySelector('form');
-form?.addEventListener('submit', (event) => {
-  event.preventDefault(); 
-
-  const data = new FormData(form);
-  const params = new URLSearchParams();
-
-  for (let [name, value] of data) {
-    params.append(name, encodeURIComponent(value)); // Properly encode values
-  }
-
-  const mailtoUrl = `${form.action}?${params.toString()}`;
-  location.href = mailtoUrl; // Open the mailto URL
+    // Theme switcher logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let darkMode = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDark);
+    setTheme(darkMode ? 'dark' : 'light');
+    if (themeToggle) {
+        themeToggle.checked = darkMode;
+        themeToggle.addEventListener('change', (e) => {
+            setTheme(e.target.checked ? 'dark' : 'light');
+        });
+    }
+    function setTheme(mode) {
+        if (mode === 'dark') {
+            document.documentElement.style.setProperty('--background-color', '#18181b');
+            document.documentElement.style.setProperty('--text-color', '#fff');
+            document.documentElement.style.setProperty('--card-bg', '#23232b');
+            document.documentElement.style.setProperty('--color-accent', '#ff6b6b');
+            document.body.classList.add('dark');
+            document.body.classList.remove('light');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.style.setProperty('--background-color', '#f9f9f9');
+            document.documentElement.style.setProperty('--text-color', '#18181b');
+            document.documentElement.style.setProperty('--card-bg', '#fff');
+            document.documentElement.style.setProperty('--color-accent', '#ff6b6b');
+            document.body.classList.add('light');
+            document.body.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+        if (themeToggle) themeToggle.checked = (mode === 'dark');
+    }
 });
 
 export async function fetchJSON(url) {
@@ -131,39 +108,3 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
     containerElement.appendChild(article);
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Theme switcher logic
-    const themeToggle = document.getElementById('theme-toggle');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    // Default to dark mode
-    let darkMode = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDark);
-    setTheme(darkMode ? 'dark' : 'light');
-    if (themeToggle) {
-        themeToggle.checked = darkMode;
-        themeToggle.addEventListener('change', (e) => {
-            setTheme(e.target.checked ? 'dark' : 'light');
-        });
-    }
-
-    function setTheme(mode) {
-        if (mode === 'dark') {
-            document.documentElement.style.setProperty('--background-color', '#18181b');
-            document.documentElement.style.setProperty('--text-color', '#fff');
-            document.documentElement.style.setProperty('--card-bg', '#23232b');
-            document.documentElement.style.setProperty('--color-accent', '#ff6b6b');
-            document.body.classList.add('dark');
-            document.body.classList.remove('light');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.style.setProperty('--background-color', '#f9f9f9');
-            document.documentElement.style.setProperty('--text-color', '#18181b');
-            document.documentElement.style.setProperty('--card-bg', '#fff');
-            document.documentElement.style.setProperty('--color-accent', '#ff6b6b');
-            document.body.classList.add('light');
-            document.body.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        }
-        if (themeToggle) themeToggle.checked = (mode === 'dark');
-    }
-});
