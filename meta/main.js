@@ -75,14 +75,16 @@ function renderCommitInfo(data, commits) {
 function renderScatterPlot(data, commits) {
   const margin = { top: 50, right: 50, bottom: 50, left: 70 };
 
-  // Ensure the container exists and resizes dynamically
+  // Ensure the container exists and has a default size
   const container = d3.select('#chart');
   if (container.empty()) {
     console.error('Error: #chart container not found.');
     return;
   }
-  const width = container.node().clientWidth;
-  const height = container.node().clientHeight;
+  container.style('width', '100%').style('height', '80vh'); // Default size
+
+  const width = container.node().clientWidth || 800; // Fallback width
+  const height = container.node().clientHeight || 400; // Fallback height
 
   const usableArea = {
     top: margin.top,

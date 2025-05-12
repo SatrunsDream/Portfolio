@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
-
 :root {
+<<<<<<< HEAD
     --font-primary: 'Roboto', sans-serif;
     --color-accent: #ff6b6b;
     --background-color: #f9f9f9;
     --text-color: #000;
+=======
+    --color-accent: oklch(65% 50% 0);
+>>>>>>> parent of a472ddf (update for site)
 }
 
 html {
@@ -13,6 +15,7 @@ html {
 }
 
 body {
+<<<<<<< HEAD
     font-family: var(--font-primary);
     line-height: 1.6;
     margin: 0;
@@ -52,6 +55,16 @@ body {
     color: #555;
 }
 
+=======
+    font: 100%/1.5 system-ui;
+    font-size: clamp(1rem, 1vw + 0.5rem, 1.25rem);
+    line-height: 1.5;
+    max-width: 100ch;
+    margin-inline: auto;
+    padding: 1rem;
+}
+
+>>>>>>> parent of a472ddf (update for site)
 /* Heading styles */
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.1;
@@ -104,22 +117,20 @@ img {
 /* Projects grid */
 .projects {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18em, 1fr));
-    gap: 1.5em;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    gap: 1em;
 }
 
 .projects article {
-    background: var(--surface-1);
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .projects article:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .project-link {
@@ -133,22 +144,14 @@ img {
 }
 
 .projects h2 {
-    font-family: var(--font-secondary);
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.projects-title {
+    margin-bottom: 1rem;
     font-size: 1.5rem;
-    margin: 1rem;
-    color: var(--color-accent);
-}
-
-.projects p {
-    font-size: 1rem;
-    margin: 0 1rem 1rem;
-    color: #555;
-}
-
-.projects img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+    text-align: left;
 }
 
 /* Form styling */
