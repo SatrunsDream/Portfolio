@@ -1,8 +1,13 @@
 :root {
     --font-primary: 'Roboto', sans-serif;
-    --color-accent: #ff6b6b;
+    --color-accent: #ff69b4;
+    --color-pink: #ff69b4;
     --background-color: #f9f9f9;
+    --nav-bg-light: #fff;
+    --nav-bg-dark: #18181b;
+    --nav-outline: #ff69b4;
     --text-color: #000;
+    --text-pink: #ff69b4;
 }
 
 html {
@@ -18,8 +23,12 @@ body {
     margin: 0 auto;
     padding: 2rem 1rem;
     background: var(--background-color, #18181b);
-    color: var(--text-color, #fff);
+    color: var(--text-pink) !important;
     transition: background 0.3s, color 0.3s;
+}
+
+body.dark {
+    background: var(--nav-bg-dark);
 }
 
 /* Profile header styles */
@@ -74,28 +83,36 @@ h1.projects-title {
 
 nav {
     display: flex;
-    margin-bottom: 2rem;
-    --border-color: oklch(50% 10% 200 / 40%); /* Adjust border color for dark mode */
-    border-bottom: 1px solid var(--border-color);
+    justify-content: space-between;
+    align-items: center;
+    background: var(--nav-bg-light);
+    border-radius: 2em;
+    border: 2.5px solid var(--nav-outline);
+    margin: 2rem auto 2rem auto;
+    padding: 0.7em 2em;
+    box-shadow: 0 2px 16px rgba(255,105,180,0.08);
+    max-width: 1100px;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark nav {
+    background: var(--nav-bg-dark);
 }
 
 nav a {
-    flex: 1;
+    color: var(--text-pink) !important;
     text-decoration: none;
-    color: inherit;
-    text-align: center;
-    padding: 0.5em;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 1.2em;
+    transition: color 0.2s;
 }
 
-nav a.current {
-    border-bottom: 0.4em solid var(--border-color);
-    padding-bottom: 0.1em;
-}
-
-nav a:hover {
-    border-bottom: 0.4em solid var(--color-accent);
-    background-color: color-mix(in oklch, var(--color-accent), canvas 85%); 
-    padding-bottom: 0.1em;
+nav a.current, nav a:hover {
+    color: #fff !important;
+    background: var(--color-accent);
+    border-radius: 1em;
+    padding: 0.2em 0.8em;
 }
 
 img {
@@ -153,7 +170,7 @@ img {
 }
 
 .projects article p {
-    color: var(--text-color, #fff);
+    color: var(--text-pink) !important;
     font-size: 1rem;
     margin: 0;
     opacity: 0.85;
@@ -350,15 +367,16 @@ circle:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Theme Switcher Toggle */
+/* Theme Switcher - outside nav, fixed top right */
 .theme-switch {
+    position: fixed;
+    top: 1.5em;
+    right: 2em;
+    z-index: 1000;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    position: absolute;
-    right: 2rem;
-    top: 1.2rem;
-    z-index: 10;
+    background: none;
+    box-shadow: none;
 }
 .theme-switch input[type="checkbox"] {
     display: none;
@@ -366,50 +384,68 @@ circle:hover {
 .theme-switch label {
     display: flex;
     align-items: center;
-    cursor: pointer;
-    background: var(--card-bg, #23232b);
+    background: var(--nav-bg-light);
     border-radius: 2em;
-    padding: 0.2em 0.6em;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    border: 1.5px solid var(--color-accent, #ff6b6b10);
-    transition: background 0.2s;
+    border: 2px solid var(--color-accent);
+    padding: 0.2em 1.2em;
+    box-shadow: 0 2px 8px rgba(255,105,180,0.08);
+    cursor: pointer;
+    min-width: 70px;
+    min-height: 36px;
+    position: relative;
+    transition: background 0.3s, border 0.3s;
+}
+body.dark .theme-switch label {
+    background: var(--nav-bg-dark);
 }
 .theme-switch .slider {
-    width: 2.2em;
-    height: 1.2em;
-    background: #888;
-    border-radius: 1em;
-    position: relative;
-    margin: 0 0.5em;
-    transition: background 0.2s;
-}
-.theme-switch .slider:before {
-    content: '';
     position: absolute;
     left: 0.2em;
     top: 0.2em;
-    width: 0.8em;
-    height: 0.8em;
-    background: #fff;
+    width: 2.2em;
+    height: 2.2em;
+    background: transparent;
     border-radius: 50%;
-    transition: transform 0.3s, background 0.3s;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    z-index: 2;
+    transition: left 0.3s, background 0.3s;
+    pointer-events: none;
+}
+.theme-switch input[type="checkbox"] + label .slider {
+    left: 0.2em;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(255,105,180,0.15);
 }
 .theme-switch input[type="checkbox"]:checked + label .slider {
-    background: #ffd700;
-}
-.theme-switch input[type="checkbox"]:checked + label .slider:before {
-    transform: translateX(1em);
-    background: #222;
+    left: 2.6em;
+    background: #18181b;
+    box-shadow: 0 1px 4px rgba(255,105,180,0.25);
 }
 .theme-switch .icon {
-    font-size: 1.2em;
-    transition: color 0.2s;
+    font-size: 1.5em;
+    margin: 0 0.5em;
+    opacity: 0.7;
+    transition: color 0.3s, opacity 0.3s;
+    z-index: 1;
 }
 .theme-switch .icon.sun {
     color: #ffd700;
 }
 .theme-switch .icon.moon {
+    color: #222;
+}
+.theme-switch input[type="checkbox"]:checked + label .icon.sun {
+    opacity: 0.5;
+}
+.theme-switch input[type="checkbox"]:checked + label .icon.moon {
+    opacity: 1;
+    color: #ffd700;
+}
+.theme-switch input[type="checkbox"]:not(:checked) + label .icon.sun {
+    opacity: 1;
+    color: #ffd700;
+}
+.theme-switch input[type="checkbox"]:not(:checked) + label .icon.moon {
+    opacity: 0.5;
     color: #222;
 }
 
@@ -430,4 +466,9 @@ circle:hover {
     .projects article {
         padding: 1.2rem 0.8rem;
     }
+}
+
+/* Make all text pink */
+*, h1, h2, h3, h4, h5, h6, p, span, label, dt, dd, .projects article p, .profile-description p {
+    color: var(--text-pink) !important;
 }
