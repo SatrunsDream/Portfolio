@@ -15,34 +15,38 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
     background-color: #f9f9f9;
     color: #333;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Profile header styles */
 .profile-header {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.5rem;
     margin-bottom: 2rem;
 }
 
 .profile-photo {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .profile-description h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin: 0;
-    color: var(--color-accent);
 }
 
 .profile-description p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #555;
 }
 
@@ -328,10 +332,10 @@ circle:hover {
 
 #chart {
     width: 100%;
-    height: calc(100vh - 300px);
+    height: 60vh;
     margin-top: 20px;
-    background: #fff;
     border: 1px solid #ccc;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
     border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
