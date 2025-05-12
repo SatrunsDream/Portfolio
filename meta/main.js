@@ -75,10 +75,16 @@ function renderCommitInfo(data, commits) {
 function renderScatterPlot(data, commits) {
   const margin = { top: 50, right: 50, bottom: 50, left: 70 };
 
-  // Dynamically calculate width and height based on the container size
-  const container = d3.select('#chart').node();
-  const width = container.clientWidth;
-  const height = container.clientHeight;
+  // Ensure the container exists and has a default size
+  const container = d3.select('#chart');
+  if (container.empty()) {
+    console.error('Error: #chart container not found.');
+    return;
+  }
+  container.style('width', '100%').style('height', '80vh'); // Default size
+
+  const width = container.node().clientWidth || 800; // Fallback width
+  const height = container.node().clientHeight || 400; // Fallback height
 
   const usableArea = {
     top: margin.top,
@@ -89,8 +95,15 @@ function renderScatterPlot(data, commits) {
     height: height - margin.top - margin.bottom,
   };
 
-  const svg = d3.select('#chart')
+  const svg = container.select('svg');
+  if (!svg.empty()) {
+    svg.remove(); // Remove existing SVG to avoid duplication
+  }
+
+  const newSvg = container
     .append('svg')
+    .attr('width', width)
+    .attr('height', height)
     .attr('viewBox', `0 0 ${width} ${height}`)
     .attr('preserveAspectRatio', 'xMidYMid meet');
 
@@ -108,7 +121,7 @@ function renderScatterPlot(data, commits) {
   const yAxis = d3.axisLeft(yScale)
     .tickFormat((d) => `${String(d).padStart(2, '0')}:00`);
 
-  svg.append('g')
+  newSvg.append('g')
     .attr('transform', `translate(0, ${usableArea.bottom})`)
     .call(xAxis)
     .append('text')
@@ -118,7 +131,7 @@ function renderScatterPlot(data, commits) {
     .style('text-anchor', 'middle')
     .text('Date and Time');
 
-  svg.append('g')
+  newSvg.append('g')
     .attr('transform', `translate(${usableArea.left}, 0)`)
     .call(yAxis)
     .append('text')
@@ -134,7 +147,7 @@ function renderScatterPlot(data, commits) {
     .domain([minLines, maxLines])
     .range([2, 30]);
 
-  const dots = svg.append('g').attr('class', 'dots');
+  const dots = newSvg.append('g').attr('class', 'dots');
 
   dots.selectAll('circle')
     .data(commits)
@@ -155,7 +168,7 @@ function renderScatterPlot(data, commits) {
       updateTooltipVisibility(false);
     });
 
-  svg.call(d3.brush()
+  newSvg.call(d3.brush()
     .on('start brush end', (event) => brushed(event, commits, xScale, yScale)));
 
   function brushed(event, commits, xScale, yScale) {
@@ -165,7 +178,7 @@ function renderScatterPlot(data, commits) {
     );
     renderSelectionCount(selection, commits, xScale, yScale);
     renderLanguageBreakdown(selection, commits, xScale, yScale);
-    renderSelectionStats(selection, commits, xScale, yScale); // Add this line
+    renderSelectionStats(selection, commits, xScale, yScale);
   }
 
   function isCommitSelected(selection, commit, xScale, yScale) {
