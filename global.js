@@ -133,17 +133,37 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const themeSelector = document.getElementById('theme-selector');
-    if (themeSelector) {
-        themeSelector.addEventListener('change', (event) => {
-            const theme = event.target.value;
-            if (theme === 'dark') {
-                document.documentElement.style.setProperty('--background-color', '#121212');
-                document.documentElement.style.setProperty('--text-color', '#ffffff');
-            } else {
-                document.documentElement.style.setProperty('--background-color', '#f9f9f9');
-                document.documentElement.style.setProperty('--text-color', '#000000');
-            }
+    // Theme switcher logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Default to dark mode
+    let darkMode = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDark);
+    setTheme(darkMode ? 'dark' : 'light');
+    if (themeToggle) {
+        themeToggle.checked = darkMode;
+        themeToggle.addEventListener('change', (e) => {
+            setTheme(e.target.checked ? 'dark' : 'light');
         });
+    }
+
+    function setTheme(mode) {
+        if (mode === 'dark') {
+            document.documentElement.style.setProperty('--background-color', '#18181b');
+            document.documentElement.style.setProperty('--text-color', '#fff');
+            document.documentElement.style.setProperty('--card-bg', '#23232b');
+            document.documentElement.style.setProperty('--color-accent', '#ff6b6b');
+            document.body.classList.add('dark');
+            document.body.classList.remove('light');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.style.setProperty('--background-color', '#f9f9f9');
+            document.documentElement.style.setProperty('--text-color', '#18181b');
+            document.documentElement.style.setProperty('--card-bg', '#fff');
+            document.documentElement.style.setProperty('--color-accent', '#ff6b6b');
+            document.body.classList.add('light');
+            document.body.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+        if (themeToggle) themeToggle.checked = (mode === 'dark');
     }
 });
