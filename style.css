@@ -3,6 +3,8 @@
 :root {
     --font-primary: 'Roboto', sans-serif;
     --color-accent: #ff6b6b;
+    --background-color: #f9f9f9;
+    --text-color: #000;
 }
 
 html {

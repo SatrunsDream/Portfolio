@@ -8,8 +8,33 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script type="module" src="https://satrunsdream.github.io/Portfolio/global.js"></script>
     <script src="projects.js" type="module" defer></script>
+    <style>
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="index.html">Projects</a>
+        <a href="../meta/index.html">Meta</a>
+        <a href="../contact/index.html">Contact</a>
+    </nav>
     <h1 class="projects-title">Projects</h1>
     <input
         class="searchBar"

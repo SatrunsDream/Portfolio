@@ -48,7 +48,7 @@ document.body.insertAdjacentHTML(
   `
   <label class="color-scheme">
     Theme:
-    <select>
+    <select id="theme-selector">
       <option value="light dark">Automatic</option>
       <option value="light">Light</option>
       <option value="dark">Dark</option>
@@ -131,3 +131,19 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
     containerElement.appendChild(article);
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const themeSelector = document.getElementById('theme-selector');
+    if (themeSelector) {
+        themeSelector.addEventListener('change', (event) => {
+            const theme = event.target.value;
+            if (theme === 'dark') {
+                document.documentElement.style.setProperty('--background-color', '#121212');
+                document.documentElement.style.setProperty('--text-color', '#ffffff');
+            } else {
+                document.documentElement.style.setProperty('--background-color', '#f9f9f9');
+                document.documentElement.style.setProperty('--text-color', '#000000');
+            }
+        });
+    }
+});

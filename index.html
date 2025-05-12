@@ -13,8 +13,41 @@
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
-            background-color: #f9f9f9;
+            background-color: var(--background-color, #f9f9f9);
+            color: var(--text-color, #000);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .theme-selector {
+            color: white;
+            font-size: 1rem;
+            background-color: #444;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .theme-selector:focus {
+            outline: none;
         }
 
         .profile-header {
@@ -25,8 +58,8 @@
         }
 
         .profile-photo {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -55,6 +88,18 @@
     </style>
 </head>
 <body>
+    <nav>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="projects/index.html">Projects</a>
+            <a href="meta/index.html">Meta</a>
+            <a href="contact/index.html">Contact</a>
+        </div>
+        <select class="theme-selector" id="theme-selector">
+            <option value="light">Light Theme</option>
+            <option value="dark">Dark Theme</option>
+        </select>
+    </nav>
     <header class="profile-header">
         <img src="images/lebron.jpg" alt="LeReader Reading" class="profile-photo">
         <div class="profile-description">
@@ -69,12 +114,6 @@
     <div class="projects"></div>
     <div class="latest-projects">
         <!-- Latest projects will be dynamically rendered here -->
-    </div>
-    <div id="selection-stats" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
-        <!-- Stats of selected commits will be dynamically rendered here -->
-    </div>
-    <div id="chart">
-        <!-- Chart will be rendered here -->
     </div>
 </body>
 </html>
