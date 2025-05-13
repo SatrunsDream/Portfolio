@@ -91,9 +91,10 @@ nav {
     margin: 2rem auto 2rem auto;
     padding: 0.7em 2em;
     box-shadow: 0 2px 16px rgba(255,105,180,0.08);
-    max-width: 1200px;
+    max-width: 1100px;
     width: 100%;
     transition: background 0.3s, color 0.3s;
+    box-sizing: border-box;
 }
 
 body.dark nav {
@@ -328,9 +329,31 @@ svg {
 
 .stats {
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.5rem;
-    margin: 1rem 0;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5em 2em;
+    align-items: center;
+    justify-items: center;
+    margin-bottom: 2em;
+    background: var(--card-bg, #fff);
+    border-radius: 1.2em;
+    padding: 1.5em 1em;
+    box-shadow: 0 2px 8px rgba(255,105,180,0.08);
+}
+
+.stats dt {
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-bottom: 0.2em;
+    color: var(--color-accent);
+    text-align: center;
+}
+
+.stats dd {
+    font-size: 2em;
+    font-weight: 800;
+    margin: 0 0 0.5em 0;
+    color: var(--text-pink);
+    text-align: center;
 }
 
 .tooltip {
@@ -381,22 +404,23 @@ circle:hover {
 /* Theme Switcher - sun/moon only, clickable */
 .theme-switch {
     position: fixed;
-    top: 1.5em;
-    right: 2em;
+    top: 1.2em;
+    right: 1.2em;
     z-index: 1000;
     display: flex;
     align-items: center;
-    gap: 1.2em;
+    gap: 0.3em;
     background: none;
     box-shadow: none;
 }
 .theme-switch .icon {
-    font-size: 2.2em;
+    font-size: 2em;
     cursor: pointer;
     opacity: 0.6;
     transition: opacity 0.2s, filter 0.2s, color 0.2s;
     filter: grayscale(0.5);
     user-select: none;
+    margin: 0 0.1em;
 }
 .theme-switch .icon.active {
     opacity: 1;

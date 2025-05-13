@@ -41,21 +41,17 @@ function processCommits(data) {
 }
 
 function renderCommitInfo(data, commits) {
-  const dl = d3.select('#stats').append('dl').attr('class', 'stats');
-
+  const statsGrid = d3.select('#stats').html('').append('dl').attr('class', 'stats');
   // Total LOC
-  dl.append('dt').html('Total <abbr title="Lines of code">LOC</abbr>');
-  dl.append('dd').text(data.length);
-
+  statsGrid.append('dt').text('Total LOC');
+  statsGrid.append('dd').text(data.length);
   // Total commits
-  dl.append('dt').text('Total commits');
-  dl.append('dd').text(commits.length);
-
+  statsGrid.append('dt').text('Total commits');
+  statsGrid.append('dd').text(commits.length);
   // Number of files
   const fileCount = d3.group(data, d => d.file).size;
-  dl.append('dt').text('Number of files');
-  dl.append('dd').text(fileCount);
-
+  statsGrid.append('dt').text('Number of files');
+  statsGrid.append('dd').text(fileCount);
   // Average file length
   const fileLengths = d3.rollups(
     data,
@@ -63,29 +59,17 @@ function renderCommitInfo(data, commits) {
     d => d.file
   );
   const avgFileLength = d3.mean(fileLengths, d => d[1]);
-  dl.append('dt').text('Average file length');
-  dl.append('dd').text(Math.round(avgFileLength));
-
+  statsGrid.append('dt').text('Avg file length');
+  statsGrid.append('dd').text(Math.round(avgFileLength));
   // Average line length
   const avgLineLength = d3.mean(data, d => d.length);
-  dl.append('dt').text('Average line length');
-  dl.append('dd').text(Math.round(avgLineLength));
+  statsGrid.append('dt').text('Avg line length');
+  statsGrid.append('dd').text(Math.round(avgLineLength));
 }
 
-function renderScatterPlot(data, commits) {
-  const margin = { top: 50, right: 50, bottom: 50, left: 70 };
-
-  // Ensure the container exists and has a default size
-  const container = d3.select('#chart');
-  if (container.empty()) {
-    console.error('Error: #chart container not found.');
-    return;
-  }
-  container.style('width', '100%').style('height', '80vh'); // Default size
-
-  const width = container.node().clientWidth || 800; // Fallback width
-  const height = container.node().clientHeight || 400; // Fallback height
-
+function renderScatterPlot(data, commits, width, height) {
+  d3.select('#chart').selectAll('svg').remove(); // Clear previous chart
+  const margin = { top: 10, right: 10, bottom: 50, left: 40 };
   const usableArea = {
     top: margin.top,
     right: width - margin.right,
@@ -94,60 +78,48 @@ function renderScatterPlot(data, commits) {
     width: width - margin.left - margin.right,
     height: height - margin.top - margin.bottom,
   };
-
-  const svg = container.select('svg');
-  if (!svg.empty()) {
-    svg.remove(); // Remove existing SVG to avoid duplication
-  }
-
-  const newSvg = container
+  const svg = d3.select('#chart')
     .append('svg')
-    .attr('width', width)
-    .attr('height', height)
     .attr('viewBox', `0 0 ${width} ${height}`)
-    .attr('preserveAspectRatio', 'xMidYMid meet');
-
+    .style('overflow', 'visible');
   const xScale = d3.scaleTime()
-    .domain(d3.extent(commits, (d) => d.datetime))
-    .range([usableArea.left, usableArea.right]);
-
+    .domain(d3.extent(commits, d => d.datetime))
+    .range([usableArea.left, usableArea.right])
+    .nice();
   const yScale = d3.scaleLinear()
     .domain([0, 24])
     .range([usableArea.bottom, usableArea.top]);
-
+  // Add gridlines
+  const gridlines = svg.append('g')
+    .attr('class', 'gridlines')
+    .attr('transform', `translate(${usableArea.left}, 0)`);
+  gridlines.call(d3.axisLeft(yScale)
+    .tickFormat('')
+    .tickSize(-usableArea.width));
+  // Create axes
   const xAxis = d3.axisBottom(xScale)
-    .tickFormat(d3.timeFormat('%b %d, %H:%M'));
-
+    .ticks(width < 600 ? 4 : 8)
+    .tickFormat(d3.timeFormat('%b %d'));
   const yAxis = d3.axisLeft(yScale)
-    .tickFormat((d) => `${String(d).padStart(2, '0')}:00`);
-
-  newSvg.append('g')
+    .tickFormat(d => String(d % 24).padStart(2, '0') + ':00');
+  // Add X axis
+  svg.append('g')
     .attr('transform', `translate(0, ${usableArea.bottom})`)
     .call(xAxis)
-    .append('text')
-    .attr('x', usableArea.width / 2 + usableArea.left)
-    .attr('y', 40)
-    .attr('fill', 'black')
-    .style('text-anchor', 'middle')
-    .text('Date and Time');
-
-  newSvg.append('g')
+    .selectAll('text')
+    .attr('transform', 'rotate(-35)')
+    .style('text-anchor', 'end');
+  // Add Y axis
+  svg.append('g')
     .attr('transform', `translate(${usableArea.left}, 0)`)
-    .call(yAxis)
-    .append('text')
-    .attr('transform', 'rotate(-90)')
-    .attr('x', -usableArea.height / 2)
-    .attr('y', -50)
-    .attr('fill', 'black')
-    .style('text-anchor', 'middle')
-    .text('Hour of Day');
+    .call(yAxis);
 
   const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
   const rScale = d3.scaleSqrt()
     .domain([minLines, maxLines])
     .range([2, 30]);
 
-  const dots = newSvg.append('g').attr('class', 'dots');
+  const dots = svg.append('g').attr('class', 'dots');
 
   dots.selectAll('circle')
     .data(commits)
@@ -168,7 +140,7 @@ function renderScatterPlot(data, commits) {
       updateTooltipVisibility(false);
     });
 
-  newSvg.call(d3.brush()
+  svg.call(d3.brush()
     .on('start brush end', (event) => brushed(event, commits, xScale, yScale)));
 
   function brushed(event, commits, xScale, yScale) {
@@ -279,9 +251,23 @@ function renderSelectionStats(selection, commits, xScale, yScale) {
   statsContainer.append('p').text(`Average Line Length: ${Math.round(avgLineLength)}`);
 }
 
-// Initialize
+// Responsive chart rendering
+function getChartSize() {
+  const chartDiv = document.getElementById('chart');
+  const width = chartDiv.offsetWidth || 900;
+  const height = Math.max(window.innerHeight * 0.6, 400);
+  return { width, height };
+}
+
+function drawResponsiveScatter() {
+  const { width, height } = getChartSize();
+  renderScatterPlot(data, commits, width, height);
+}
+
+window.addEventListener('resize', drawResponsiveScatter);
+
+// Initial draw
 let data = await loadData();
 let commits = processCommits(data);
-
 renderCommitInfo(data, commits);
-renderScatterPlot(data, commits);
+drawResponsiveScatter();
