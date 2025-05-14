@@ -3,11 +3,18 @@
     --color-accent: #ff69b4;
     --color-pink: #ff69b4;
     --background-color: #f9f9f9;
-    --nav-bg-light: #fff;
-    --nav-bg-dark: #18181b;
-    --nav-outline: #ff69b4;
+    --nav-bg: #333;
+    --nav-radius: 2rem;
+    --nav-padding: 1.25rem 4rem;
+    --nav-link-color: #fff;
+    --nav-link-hover: underline;
+    --nav-gap: 1.5rem;
+    --nav-font-size: 1.2rem;
     --text-color: #000;
     --text-pink: #ff69b4;
+    --search-bg: #fff;
+    --search-color: #222;
+    --search-border: #ccc;
 }
 
 html {
@@ -25,9 +32,14 @@ body {
     background: var(--background-color, #18181b);
     color: var(--text-pink) !important;
     transition: background 0.3s, color 0.3s;
+    /* border removed for all pages */
 }
 
 body.dark {
+    --background-color: #18181b;
+    --text-color: #fff;
+    --nav-bg: #23232b;
+    --nav-link-color: #fff;
     background: var(--nav-bg-dark);
 }
 
@@ -83,40 +95,33 @@ h1.projects-title {
 
 nav {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    background: var(--nav-bg-light);
-    border-radius: 2em;
-    border: 2.5px solid var(--nav-outline);
-    margin: 2rem auto 2rem auto;
-    padding: 0.7em 2em;
-    box-shadow: 0 2px 16px rgba(255,105,180,0.08);
-    max-width: 1100px;
-    width: 100%;
-    transition: background 0.3s, color 0.3s;
+    background-color: var(--nav-bg);
+    padding: var(--nav-padding, 1.25rem 4rem);
+    margin-bottom: 2rem;
+    border-radius: var(--nav-radius, 2rem);
+    transition: background 0.3s;
+    max-width: 100vw;
     box-sizing: border-box;
 }
 
-body.dark nav {
-    background: var(--nav-bg-dark);
+.nav-links {
+    flex: 1;
+    display: flex;
+    gap: var(--nav-gap);
+    align-items: center;
 }
 
 nav a {
-    color: var(--text-pink) !important;
+    color: var(--nav-link-color, #fff);
     text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 0 1.2em;
+    font-size: var(--nav-font-size, 1.2rem);
     transition: color 0.2s;
-    flex: 1;
-    text-align: center;
 }
 
-nav a.current, nav a:hover {
-    color: #fff !important;
-    background: var(--color-accent);
-    border-radius: 1em;
-    padding: 0.2em 0.8em;
+nav a:hover {
+    text-decoration: var(--nav-link-hover, underline);
 }
 
 img {
@@ -322,9 +327,17 @@ svg {
     padding: 0.5rem;
     margin-bottom: 1rem;
     font-size: 1rem;
-    border: 1px solid var(--color-accent);
+    border: 1px solid var(--search-border);
     border-radius: 0.25rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: var(--search-bg);
+    color: var(--search-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: background 0.3s, color 0.3s;
+}
+
+.searchBar::placeholder {
+    color: #888;
+    opacity: 1;
 }
 
 .stats {

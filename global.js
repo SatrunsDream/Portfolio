@@ -7,8 +7,8 @@ export const BASE_PATH = window.location.hostname.includes("github.io")
 let pages = [
   { url: '', title: 'Home' },
   { url: 'projects/', title: 'Projects' },
-  { url: 'contact/', title: 'Contact' },
   { url: 'meta/', title: 'Meta' },
+  { url: 'contact/', title: 'Contact' },
   { url: 'https://github.com/SatrunsDream', title: 'GitHub' },
   { url: 'https://drive.google.com/file/d/1tDyOUQV6bGmiMTLvdvAH_JCUpUCJdNaR/view?usp=drive_link', title: 'Resume' }
 ];
@@ -16,7 +16,7 @@ let pages = [
 document.addEventListener('DOMContentLoaded', () => {
     // Remove any existing navs to prevent duplicates
     document.querySelectorAll('nav').forEach(n => n.remove());
-    // Inject nav
+    // Inject nav with the same structure as the contact page
     const navHTML = `
     <nav>
       <a href="${BASE_PATH}">Home</a>
@@ -27,49 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="https://drive.google.com/file/d/1tDyOUQV6bGmiMTLvdvAH_JCUpUCJdNaR/view?usp=drive_link" target="_blank">Resume</a>
     </nav>`;
     document.body.insertAdjacentHTML('afterbegin', navHTML);
-
-    // Inject theme switcher (sun/moon only)
-    const switchHTML = `
-      <div class="theme-switch">
-        <span class="icon sun" id="theme-sun" title="Light mode">☀️</span>
-        <span class="icon moon" id="theme-moon" title="Dark mode">🌙</span>
-      </div>
-    `;
-    document.body.insertAdjacentHTML('afterbegin', switchHTML);
-
-    // Theme switcher logic
-    const sun = document.getElementById('theme-sun');
-    const moon = document.getElementById('theme-moon');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let darkMode = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDark);
-    setTheme(darkMode ? 'dark' : 'light');
-    function setTheme(mode) {
-        if (mode === 'dark') {
-            document.documentElement.style.setProperty('--background-color', '#18181b');
-            document.documentElement.style.setProperty('--text-color', '#fff');
-            document.documentElement.style.setProperty('--card-bg', '#23232b');
-            document.documentElement.style.setProperty('--color-accent', '#ff69b4');
-            document.documentElement.style.setProperty('--nav-bg-light', '#18181b');
-            document.body.classList.add('dark');
-            document.body.classList.remove('light');
-            localStorage.setItem('theme', 'dark');
-            sun.classList.remove('active');
-            moon.classList.add('active');
-        } else {
-            document.documentElement.style.setProperty('--background-color', '#f9f9f9');
-            document.documentElement.style.setProperty('--text-color', '#18181b');
-            document.documentElement.style.setProperty('--card-bg', '#fff');
-            document.documentElement.style.setProperty('--color-accent', '#ff69b4');
-            document.documentElement.style.setProperty('--nav-bg-light', '#fff');
-            document.body.classList.add('light');
-            document.body.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-            sun.classList.add('active');
-            moon.classList.remove('active');
-        }
-    }
-    sun.addEventListener('click', () => setTheme('light'));
-    moon.addEventListener('click', () => setTheme('dark'));
 });
 
 export async function fetchJSON(url) {

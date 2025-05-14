@@ -12,42 +12,10 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: none;
+            box-shadow: none;
             background-color: var(--background-color, #f9f9f9);
             color: var(--text-color, #000);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #333;
-            padding: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .theme-selector {
-            color: white;
-            font-size: 1rem;
-            background-color: #444;
-            border: none;
-            padding: 0.5rem;
-            border-radius: 5px;
-        }
-
-        .theme-selector:focus {
-            outline: none;
         }
 
         .profile-header {
@@ -88,22 +56,7 @@
     </style>
 </head>
 <body>
-    <nav>
-        <div style="flex:1;display:flex;gap:1.5rem;align-items:center;">
-            <a href="index.html">Home</a>
-            <a href="projects/index.html">Projects</a>
-            <a href="meta/index.html">Meta</a>
-            <a href="contact/index.html">Contact</a>
-        </div>
-        <div class="theme-switch">
-            <input type="checkbox" id="theme-toggle" checked>
-            <label for="theme-toggle">
-                <span class="icon moon">🌙</span>
-                <span class="slider"></span>
-                <span class="icon sun">☀️</span>
-            </label>
-        </div>
-    </nav>
+    <!-- nav will be injected by global.js -->
     <header class="profile-header">
         <img src="images/lebron.jpg" alt="LeReader Reading" class="profile-photo">
         <div class="profile-description">
