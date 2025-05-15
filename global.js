@@ -16,9 +16,9 @@ let pages = [
 document.addEventListener('DOMContentLoaded', () => {
     // Remove any existing navs to prevent duplicates
     document.querySelectorAll('nav').forEach(n => n.remove());
-    // Inject nav
+    // Inject nav with white background
     const navHTML = `
-    <nav>
+    <nav style="background-color: #fff;">
       <a href="${BASE_PATH}">Home</a>
       <a href="${BASE_PATH}projects/">Projects</a>
       <a href="${BASE_PATH}meta/">Meta</a>
