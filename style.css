@@ -106,13 +106,6 @@ nav {
     box-sizing: border-box;
 }
 
-.nav-links {
-    flex: 1;
-    display: flex;
-    gap: var(--nav-gap);
-    align-items: center;
-}
-
 nav a {
     color: var(--nav-link-color, #fff);
     text-decoration: none;
@@ -124,9 +117,32 @@ nav a:hover {
     text-decoration: var(--nav-link-hover, underline);
 }
 
-img {
-    max-width: 100%;
-    height: auto;
+/* Floating theme switcher */
+.theme-switch {
+    position: fixed;
+    top: 1.2em;
+    right: 1.2em;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    background: none;
+    box-shadow: none;
+}
+.theme-switch .icon {
+    font-size: 2em;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s, filter 0.2s, color 0.2s;
+    filter: grayscale(0.5);
+    user-select: none;
+    margin: 0 0.1em;
+}
+.theme-switch .icon.active {
+    opacity: 1;
+    filter: none;
+    color: var(--color-accent);
+    text-shadow: 0 0 8px var(--color-accent, #ff69b4);
 }
 
 /* Projects grid */
@@ -138,14 +154,14 @@ img {
 }
 
 .projects article {
-    background: var(--card-bg, #23232b);
+    background: var(--card-bg, #fff);
     border-radius: 2rem;
     box-shadow: 0 4px 24px rgba(0,0,0,0.10);
     padding: 2rem 1.5rem 1.5rem 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
     border: 1.5px solid var(--color-accent, #ff6b6b10);
 }
 
@@ -412,34 +428,6 @@ circle:hover {
     height: 100% !important;
     min-height: 400px;
     display: block;
-}
-
-/* Theme Switcher - sun/moon only, clickable */
-.theme-switch {
-    position: fixed;
-    top: 1.2em;
-    right: 1.2em;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    gap: 0.3em;
-    background: none;
-    box-shadow: none;
-}
-.theme-switch .icon {
-    font-size: 2em;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.2s, filter 0.2s, color 0.2s;
-    filter: grayscale(0.5);
-    user-select: none;
-    margin: 0 0.1em;
-}
-.theme-switch .icon.active {
-    opacity: 1;
-    filter: none;
-    color: var(--color-accent);
-    text-shadow: 0 0 8px var(--color-accent, #ff69b4);
 }
 
 /* Responsive tweaks */
