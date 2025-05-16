@@ -16,15 +16,16 @@ let pages = [
 document.addEventListener('DOMContentLoaded', () => {
     // Remove any existing navs to prevent duplicates
     document.querySelectorAll('nav').forEach(n => n.remove());
-    // Inject nav with white background
+    // Inject nav with correct order and LinkedIn
     const navHTML = `
-    <nav style="background-color: #fff;">
+    <nav id="main-nav">
       <a href="${BASE_PATH}">Home</a>
       <a href="${BASE_PATH}projects/">Projects</a>
-      <a href="${BASE_PATH}meta/">Meta</a>
       <a href="${BASE_PATH}contact/">Contact</a>
       <a href="https://github.com/SatrunsDream" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/sardor-sobirov/" target="_blank">LinkedIn</a>
       <a href="https://drive.google.com/file/d/1tDyOUQV6bGmiMTLvdvAH_JCUpUCJdNaR/view?usp=drive_link" target="_blank">Resume</a>
+      <a href="${BASE_PATH}meta/">Meta</a>
     </nav>
     <div class="theme-switch">
       <span class="icon sun" id="theme-sun" title="Light mode" style="cursor:pointer;">☀️</span>
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme switcher logic
     const sun = document.getElementById('theme-sun');
     const moon = document.getElementById('theme-moon');
+    const nav = document.getElementById('main-nav');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     let darkMode = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDark);
 
@@ -45,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.style.setProperty('--text-color', '#fff');
             document.documentElement.style.setProperty('--nav-bg', '#23232b');
             document.documentElement.style.setProperty('--nav-link-color', '#fff');
+            document.documentElement.style.setProperty('--nav-link-hover-bg', '#ff69b420');
             document.documentElement.style.setProperty('--card-bg', '#23232b');
             document.body.classList.add('dark');
             document.body.classList.remove('light');
@@ -54,8 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             document.documentElement.style.setProperty('--background-color', '#f9f9f9');
             document.documentElement.style.setProperty('--text-color', '#000');
-            document.documentElement.style.setProperty('--nav-bg', '#333');
-            document.documentElement.style.setProperty('--nav-link-color', '#fff');
+            document.documentElement.style.setProperty('--nav-bg', '#fff');
+            document.documentElement.style.setProperty('--nav-link-color', '#000');
+            document.documentElement.style.setProperty('--nav-link-hover-bg', '#ff69b420');
             document.documentElement.style.setProperty('--card-bg', '#fff');
             document.body.classList.add('light');
             document.body.classList.remove('dark');
@@ -63,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sun.classList.add('active');
             moon.classList.remove('active');
         }
+        // Update nav background color directly for instant effect
+        if (nav) nav.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--nav-bg');
     }
 
     setTheme(darkMode ? 'dark' : 'light');

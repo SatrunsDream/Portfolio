@@ -110,11 +110,16 @@ nav a {
     color: var(--nav-link-color, #000);
     text-decoration: none;
     font-size: var(--nav-font-size, 1.2rem);
-    transition: color 0.2s;
+    transition: color 0.2s, background 0.2s;
+    border-radius: 1em;
+    padding: 0.3em 1em;
+    position: relative;
 }
 
 nav a:hover {
     text-decoration: var(--nav-link-hover, underline);
+    background: var(--nav-link-hover-bg, #ff69b420);
+    color: var(--color-accent, #ff69b4);
 }
 
 /* Floating theme switcher */
