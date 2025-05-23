@@ -3,37 +3,42 @@
     {
       "title": "Chronic Kidney Disease Prediction",
       "year": "2025",
-      "image": "https://satrunsdream.github.io/Portfolio/images/ckd.webp",
+      "image": "https://satrunsdream.github.io/Portfolio/images/ckd.png",
       "description": "Developed a machine learning model to predict chronic kidney disease using patient health indicators. Achieved high accuracy through data preprocessing, feature selection, and model optimization.",
-      "link": "https://satrunsdream.github.io/Chronic-Kidney-Disease/"
+      "link": "https://satrunsdream.github.io/Chronic-Kidney-Disease/",
+      "tags": ["Machine Learning", "Healthcare", "Classification", "Scikit-learn", "Data Preprocessing"]
     },
     {
       "title": "House Evaluation",
       "year": "2025",
-      "image": "https://satrunsdream.github.io/Portfolio/images/hma.jpg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/hma.png",
       "description": "Created a web application to evaluate house prices using data from over 2 million U.S. homes. Implemented regression models and geodemographic analysis for accurate price predictions.",
-      "link": "https://github.com/SatrunsDream/House-Evaluation"
+      "link": "https://github.com/SatrunsDream/House-Evaluation",
+      "tags": ["Regression", "Housing Market", "Geospatial Analysis", "FastAPI", "Data Engineering"]
     },
     {
-      "title": "Surfance Temperature Anomalies",
+      "title": "Comparative Glucose Response by Nutrient Focus and Health Group",
       "year": "2025",
-      "image": "https://satrunsdream.github.io/Portfolio/images/sta.jpg",
-      "description": "This project explores how visual design choices can shape public perception of climate data, and blurs the line between persuasion and deception. Focusing on global surface temperature anomalies from 1961–2024.",
-      "link": "https://satrunsdream.github.io/Surfance_Temperture_Anomalies/"
+      "image": "https://satrunsdream.github.io/Portfolio/images/nas.png",
+      "description": "Developed an interactive D3.js dashboard to explore how different meal compositions (high-carb, high-protein, high-fat) affect blood glucose levels across health groups (Healthy, Pre-diabetic, Type 2 Diabetic). Features include a dynamic line chart for glucose response over time, a donut chart summarizing average macronutrient intake, and interactive elements like dropdowns, checkboxes, zooming, and tooltips. The design prioritizes clarity, comparability, and accessibility, offering responsive layout, loading feedback, and consistent styling. This project demonstrates effective storytelling with data and highlights how visualization can support nuanced exploration of metabolic health patterns.",
+      "link": "https://d2osborn.github.io/dsc106-project3/",
+      "tags": ["Data Visualization", "D3.js", "Interactive Design", "Health Data", "UX/UI"]
     },
     {
       "title": "Drug Consumption Study",
       "year": "2025",
-      "image": "https://satrunsdream.github.io/Portfolio/images/dcs.avif",
+      "image": "https://satrunsdream.github.io/Portfolio/images/dcs.png",
       "description": "Investigated correlations between demographic factors and drug consumption patterns. Utilized machine learning classification techniques to identify key predictors of substance use.",
-      "link": "https://github.com/SatrunsDream/Drug-Consumption-Study"
+      "link": "https://github.com/SatrunsDream/Drug-Consumption-Study",
+      "tags": ["Machine Learning", "Behavioral Data", "Classification", "Public Health", "EDA"]
     },
     {
       "title": "Power Outages Analysis",
       "year": "2024",
-      "image": "https://satrunsdream.github.io/Portfolio/images/poa.jpeg",
+      "image": "https://satrunsdream.github.io/Portfolio/images/poa.png",
       "description": "Analyzed major power outage events in the U.S. from 2000 to 2016. Conducted data cleaning, exploratory data analysis, and predictive modeling to understand outage patterns and their impacts.",
-      "link": "https://satrunsdream.github.io/Poweroutages-Analysis/"
+      "link": "https://satrunsdream.github.io/Poweroutages-Analysis/",
+      "tags": ["Time Series", "Energy Sector", "Data Cleaning", "Predictive Modeling", "Exploratory Analysis"]
     }
   ]
 }
