@@ -20,7 +20,7 @@
       "title": "Comparative Glucose Response by Nutrient Focus and Health Group",
       "year": "2025",
       "image": "https://satrunsdream.github.io/Portfolio/images/nas.png",
-      "description": "Developed an interactive D3.js dashboard to explore how different meal compositions (high-carb, high-protein, high-fat) affect blood glucose levels across health groups (Healthy, Pre-diabetic, Type 2 Diabetic). Features include a dynamic line chart for glucose response over time, a donut chart summarizing average macronutrient intake, and interactive elements like dropdowns, checkboxes, zooming, and tooltips. The design prioritizes clarity, comparability, and accessibility, offering responsive layout, loading feedback, and consistent styling. This project demonstrates effective storytelling with data and highlights how visualization can support nuanced exploration of metabolic health patterns.",
+      "description": "Developed an interactive D3.js dashboard to explore how different meal compositions (high-carb, high-protein, high-fat) affect blood glucose levels across health groups (Healthy, Pre-diabetic, Type 2 Diabetic).",
       "link": "https://d2osborn.github.io/dsc106-project3/",
       "tags": ["Data Visualization", "D3.js", "Interactive Design", "Health Data", "UX/UI"]
     },

@@ -102,17 +102,12 @@ export async function fetchJSON(url) {
 export function renderProjects(projects, containerElement, headingLevel = 'h2') {
   containerElement.innerHTML = '';
   for (const project of projects) {
-    const tagsHtml = project.tags && Array.isArray(project.tags)
-      ? `<div class="project-tags">${project.tags.map(tag =>
-          `<span class="project-tag">${tag}</span>`).join('')}</div>`
-      : '';
     const article = document.createElement('article');
     article.innerHTML = `
       <a href="${project.link}" target="_blank" class="project-link">
         <${headingLevel}>${project.title}</${headingLevel}>
         <img src="${project.image}" alt="${project.title}">
         <p>${project.description}</p>
-        ${tagsHtml}
       </a>
     `;
     containerElement.appendChild(article);
