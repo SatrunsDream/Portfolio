@@ -4,7 +4,7 @@ let xScale, yScale, commits, brush;
 
 async function loadData() {
   const data = await d3.csv(
-    'https://satrunsdream.github.io/Portfolio/loc.csv', // Absolute URL for loc.csv
+    'https://satrunsdream.github.io/Portfolio/loc.csv', // Ensure absolute URL for loc.csv
     (row) => ({
       ...row,
       line: +row.line,
@@ -176,7 +176,6 @@ function renderScatterPlot(data, commits) {
 
 function renderTooltipContent(commit) {
   const tooltip = document.getElementById('commit-tooltip');
-
   if (!commit || Object.keys(commit).length === 0) {
     tooltip.style.display = 'none';
     return;
@@ -185,8 +184,12 @@ function renderTooltipContent(commit) {
   tooltip.style.display = 'block';
   document.getElementById('commit-link').href = commit.url;
   document.getElementById('commit-link').textContent = commit.id;
-  document.getElementById('commit-date').textContent = commit.datetime?.toLocaleDateString('en', { dateStyle: 'full' });
-  document.getElementById('commit-time').textContent = commit.datetime?.toLocaleTimeString('en', { timeStyle: 'short' });
+  document.getElementById('commit-date').textContent = commit.datetime?.toLocaleDateString('en', {
+    dateStyle: 'full',
+  });
+  document.getElementById('commit-time').textContent = commit.datetime?.toLocaleTimeString('en', {
+    timeStyle: 'short',
+  });
   document.getElementById('commit-author').textContent = commit.author ?? '';
   document.getElementById('commit-lines').textContent = commit.totalLines;
 }

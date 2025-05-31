@@ -6,7 +6,7 @@
     <title>Meta</title>
     <link rel="stylesheet" href="https://satrunsdream.github.io/Portfolio/style.css">
     <script type="module" src="https://satrunsdream.github.io/Portfolio/global.js"></script>
-    <script type="module" src="https://satrunsdream.github.io/Portfolio/meta/main.js"></script> <!-- Edited for absolute path -->
+    <script type="module" src="https://satrunsdream.github.io/Portfolio/meta/main.js"></script> <!-- Ensure absolute path -->
     <style>
         .gridlines line {
             stroke: #ccc;
@@ -68,28 +68,28 @@
 <body>
     <!-- nav will be injected by global.js -->
     <h1>Meta Analysis of the Site</h1>
+    <p>This page contains visualizations and summary statistics about our project's codebase.</p>
     <div id="stats"></div>
     <h2>Commits by time of day</h2>
-    <div id="chart" style="width: 100%; height: 80vh;">
-        <!-- Scatter plot will be rendered here -->
+    <div id="background-overlay"></div>
+    <div id="chart-wrapper">
+        <div id="chart" style="width: 100%; height: 80vh;">
+            <!-- Scatter plot will be rendered here -->
+        </div>
     </div>
-    <p id="selection-count">No commits selected</p>
-    <dl id="language-breakdown" class="stats"></dl>
-
-    <!-- Tooltip with additional fields -->
     <dl id="commit-tooltip" class="info tooltip" hidden>
         <dt>Commit</dt>
-        <dd>
-            <a href="" id="commit-link" target="_blank"></a>
-        </dd>
+        <dd><a href="" id="commit-link" target="_blank"></a></dd>
         <dt>Date</dt>
         <dd id="commit-date"></dd>
         <dt>Time</dt>
         <dd id="commit-time"></dd>
         <dt>Author</dt>
         <dd id="commit-author"></dd>
-        <dt>Lines</dt>
+        <dt>Lines edited</dt>
         <dd id="commit-lines"></dd>
     </dl>
+    <p id="selection-count">No commits selected</p>
+    <dl id="language-breakdown" class="stats"></dl>
 </body>
 </html>
