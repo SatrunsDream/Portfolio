@@ -9,6 +9,14 @@
       "tags": ["Machine Learning", "Healthcare", "Classification", "Scikit-learn", "Data Preprocessing"]
     },
     {
+      "title": "MLB Data Analysis Dashboard",
+      "year": "2025",
+      "image": "https://satrunsdream.github.io/Portfolio/images/mlb.png",
+      "description": "Built an interactive dashboard using D3.js and JavaScript to explore MLB player and team statistics. Visualizations include performance trends, comparisons across seasons, and predictive insights leveraging advanced metrics.",
+      "link": "https://d2osborn.github.io/dsc106-finalproject/",
+      "tags": ["Data Visualization", "D3.js", "Sports Analytics", "Interactive Dashboard", "MLB"]
+    },
+    {
       "title": "House Evaluation",
       "year": "2025",
       "image": "https://satrunsdream.github.io/Portfolio/images/hma.png",

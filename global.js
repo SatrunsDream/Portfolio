@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="https://github.com/SatrunsDream" target="_blank">GitHub</a>
       <a href="https://www.linkedin.com/in/sardor-sobirov/" target="_blank">LinkedIn</a>
       <a href="https://drive.google.com/file/d/1tDyOUQV6bGmiMTLvdvAH_JCUpUCJdNaR/view?usp=drive_link" target="_blank">Resume</a>
-      <a href="${BASE_PATH}meta/">Meta</a>
     </nav>
     <div class="theme-switch">
       <span class="icon sun" id="theme-sun" title="Light mode" style="cursor:pointer;">☀️</span>

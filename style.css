@@ -275,26 +275,12 @@ form button:hover {
     font-family: inherit;
 }
 
-.github-stats {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    text-align: center;
-}
-
-.github-stats div {
-    flex: 1;
-}
-
-.github-stats h3 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-}
-
+/* Remove GitHub stats styles */
+.github-stats,
+.github-stats div,
+.github-stats h3,
 .github-stats p {
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 0;
+    display: none;
 }
 
 /* Pie chart and legend styling */
